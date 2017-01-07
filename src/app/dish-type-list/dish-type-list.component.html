@@ -1,3 +1,38 @@
-<p>
-  dish-type-list works!
-</p>
+<h1 class="page-heading">Categorie</h1>
+<div class="card">
+  <div class="card-block">
+  <table class="table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Azioni</th>
+      <th>Nome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="dishTypes?.length > 0">
+      <td>
+        <label>
+          <input type="checkbox" class="check" id="checkAll">
+        </label>
+      </td>
+      <td></td>
+      <td>
+        <label>
+          <input id="nameFilter" class="form-control" type="text" name="nameFilter" placeholder="Filtra per nome">
+        </label>
+      </td>
+    </tr>
+    <tr *ngFor="let dt of dishTypes">
+      <td>
+        <label>
+          <input type="checkbox" class="check">
+        </label>
+      </td>
+      <td>ddf</td>
+      <td>{{dt.name}}</td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+</div>
