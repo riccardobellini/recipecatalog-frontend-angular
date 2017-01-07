@@ -8,12 +8,14 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 
 import { RoutingModule } from './routing.module';
+import { DishTypeListComponent } from './dish-type-list/dish-type-list.component';
 
 @NgModule({
   declarations: [
     RecipeCatalogComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    DishTypeListComponent
   ],
   imports: [
     BrowserModule,
