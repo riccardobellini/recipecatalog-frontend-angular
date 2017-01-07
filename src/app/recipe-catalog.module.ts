@@ -5,16 +5,21 @@ import { HttpModule } from '@angular/http';
 
 import { RecipeCatalogComponent } from './recipe-catalog.component';
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+
+import { RoutingModule } from './routing.module';
 
 @NgModule({
   declarations: [
     RecipeCatalogComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RoutingModule
   ],
   providers: [],
   bootstrap: [RecipeCatalogComponent]
