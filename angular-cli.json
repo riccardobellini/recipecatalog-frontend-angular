@@ -18,7 +18,8 @@
       "prefix": "rc",
       "mobile": false,
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/font-awesome/scss/font-awesome.scss"
       ],
       "scripts": [],
       "environments": {
@@ -28,7 +29,9 @@
       }
     }
   ],
-  "addons": [],
+  "addons": [
+    "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
+  ],
   "packages": [],
   "e2e": {
     "protractor": {
