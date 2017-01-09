@@ -1,21 +1,15 @@
 <h1 class="page-heading">Categorie</h1>
 <div class="card">
   <div class="card-block">
-  <table class="table">
+  <table class="table table-sm vertical-align">
     <thead>
     <tr>
-      <th></th>
-      <th>Azioni</th>
-      <th>Nome</th>
+      <th class="w-25">Azioni</th>
+      <th class="w-75">Nome</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngIf="dishTypes?.length > 0">
-      <td>
-        <label>
-          <input type="checkbox" class="check" id="checkAll">
-        </label>
-      </td>
       <td></td>
       <td>
         <label>
@@ -25,11 +19,13 @@
     </tr>
     <tr *ngFor="let dt of dishTypes">
       <td>
-        <label>
-          <input type="checkbox" class="check">
-        </label>
+        <button type="button" class="btn btn-secondary">
+          <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i> Modifica
+        </button>
+        <button type="button" class="btn btn-danger">
+          <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i> Elimina
+        </button>
       </td>
-      <td>ddf</td>
       <td>{{dt.name}}</td>
     </tr>
   </tbody>
