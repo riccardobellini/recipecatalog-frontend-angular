@@ -11,6 +11,8 @@ import { RoutingModule } from './routing.module';
 import { DishTypeListComponent } from './dish-type-list/dish-type-list.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 
+import { DishTypeService } from './dish-type.service';
+
 @NgModule({
   declarations: [
     RecipeCatalogComponent,
@@ -25,7 +27,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
     HttpModule,
     RoutingModule
   ],
-  providers: [],
+  providers: [
+    DishTypeService
+  ],
   bootstrap: [RecipeCatalogComponent]
 })
 export class RecipeCatalogModule { }

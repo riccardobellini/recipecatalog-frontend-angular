@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DishTypeService } from '../dish-type.service';
+
 export interface DishType {
   id: number;
   name: string;
@@ -29,7 +31,10 @@ export class DishTypeListComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private dtSrv : DishTypeService) {
+    dtSrv.getDishTypes()
+    .subscribe((dishTypes) => console.log(dishTypes));
+  }
 
   ngOnInit() {
   }
