@@ -12,6 +12,8 @@ export interface DishType {
 })
 export class DishTypeListComponent implements OnInit {
 
+  private requestRunning: boolean = false;
+
   dishTypes: Array<DishType> = [
     {
       id: 1,
@@ -30,6 +32,10 @@ export class DishTypeListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  requestCompleted() {
+    this.requestRunning = false;
   }
 
 }

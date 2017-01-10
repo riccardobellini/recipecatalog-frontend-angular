@@ -9,13 +9,15 @@ import { HomeComponent } from './home/home.component';
 
 import { RoutingModule } from './routing.module';
 import { DishTypeListComponent } from './dish-type-list/dish-type-list.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     RecipeCatalogComponent,
     HeaderComponent,
     HomeComponent,
-    DishTypeListComponent
+    DishTypeListComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
