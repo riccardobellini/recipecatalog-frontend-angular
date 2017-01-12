@@ -6,13 +6,23 @@
   <table class="table table-sm vertical-align">
     <thead>
     <tr>
+      <th></th>
       <th class="w-25">Azioni</th>
-      <th class="w-75">Nome</th>
+      <th>Nome</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngIf="dishTypes?.length > 0">
-      <td></td>
+      <td>
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" (change)="toggleAll($event)">
+        </label>
+      </td>
+      <td>
+        <button *ngIf="numSelected > 0" type="button" class="btn btn-danger">
+          <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i> Elimina selezionate
+        </button>
+      </td>
       <td>
         <label>
           <input id="nameFilter" class="form-control" type="text" name="nameFilter" placeholder="Filtra per nome">
@@ -20,6 +30,11 @@
       </td>
     </tr>
     <tr *ngFor="let dt of dishTypes">
+      <td>
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" [(ngModel)]="dt.selected" (change)="$event.target.checked ? numSelected = numSelected + 1 : numSelected = numSelected - 1">
+        </label>
+      </td>
       <td>
         <button type="button" class="btn btn-secondary">
           <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i> Modifica

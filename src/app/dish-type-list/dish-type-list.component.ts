@@ -5,6 +5,7 @@ import { DishTypeService } from '../dish-type.service';
 export interface DishType {
   id: number;
   name: string;
+  selected: boolean;
 }
 
 @Component({
@@ -14,20 +15,24 @@ export interface DishType {
 })
 export class DishTypeListComponent implements OnInit {
 
+  private numSelected: number = 0;
   private requestRunning: boolean = false;
 
   dishTypes: Array<DishType> = [
     {
       id: 1,
-      name: 'Antipasti'
+      name: 'Antipasti',
+      selected: false
     },
     {
       id: 2,
-      name: 'Primi Piatti - Riso'
+      name: 'Primi Piatti - Riso',
+      selected: false
     },
     {
       id: 3,
-      name: 'Secondi Piatti - Carne'
+      name: 'Secondi Piatti - Carne',
+      selected: false
     }
   ];
 
@@ -41,6 +46,17 @@ export class DishTypeListComponent implements OnInit {
 
   requestCompleted() {
     this.requestRunning = false;
+  }
+
+  toggleAll($event) {
+    this.dishTypes.forEach((dt) => {
+      dt.selected = $event.target.checked;
+    });
+    if ($event.target.checked) {
+      this.numSelected = this.dishTypes.length;
+    } else {
+      this.numSelected = 0;
+    }
   }
 
 }
