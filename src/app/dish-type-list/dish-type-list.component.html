@@ -15,7 +15,7 @@
     <tr *ngIf="dishTypes?.length > 0">
       <td>
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" (change)="toggleAll($event)">
+          <input type="checkbox" class="form-check-input" (change)="toggleAll($event)" [checked]="numSelected === dishTypes?.length">
         </label>
       </td>
       <td>
