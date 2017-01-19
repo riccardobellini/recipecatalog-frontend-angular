@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+$sizes: (
+  25: 25%,
+  50: 50%,
+  70: 70%,
+  75: 75%,
+  100: 100%
+) !default;
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 body {

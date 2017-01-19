@@ -1,24 +1,31 @@
 <rc-spinner [isRunning]="requestRunning"></rc-spinner>
 
 <h1 class="page-heading">Categorie</h1>
+
 <div class="card">
-  <div class="card-block">
+<!--   <div class="card-header">
+    <button class="btn btn-secondary">
+      <i class="fa fa-plus fa-sm" aria-hidden="true"></i> Crea
+    </button>
+  </div>
+ -->  <div class="card-block">
   <table class="table table-sm vertical-align">
     <thead>
     <tr>
-      <th></th>
-      <th class="w-25">Azioni</th>
-      <th>Nome</th>
+      <th>
+        <button class="btn btn-secondary">
+          <i class="fa fa-plus fa-sm" aria-hidden="true"></i> Crea
+        </button>
+      </th>
+      <th class="w-70">Nome</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngIf="dishTypes?.length > 0">
       <td>
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" (change)="toggleAll($event)" [checked]="numSelected === dishTypes?.length">
+          <input type="checkbox" class="form-check-input mr-sm-4" (change)="toggleAll($event)" [checked]="numSelected === dishTypes?.length">
         </label>
-      </td>
-      <td>
         <button *ngIf="numSelected > 0" type="button" class="btn btn-danger">
           <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i> Elimina selezionate
         </button>
@@ -30,13 +37,11 @@
       </td>
     </tr>
     <tr *ngFor="let dt of dishTypes">
-      <td>
+      <td class="form-inline">
         <label class="form-check-label">
-          <input type="checkbox" class="form-check-input" [(ngModel)]="dt.selected" (change)="$event.target.checked ? numSelected = numSelected + 1 : numSelected = numSelected - 1">
+          <input type="checkbox" class="form-check-input mr-sm-4" [(ngModel)]="dt.selected" (change)="$event.target.checked ? numSelected = numSelected + 1 : numSelected = numSelected - 1">
         </label>
-      </td>
-      <td>
-        <button type="button" class="btn btn-secondary">
+        <button type="button" class="btn btn-secondary mr-sm-2">
           <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i> Modifica
         </button>
         <button type="button" class="btn btn-danger">

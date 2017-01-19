@@ -18,34 +18,27 @@ export class DishTypeListComponent implements OnInit {
   private numSelected: number = 0;
   private requestRunning: boolean = false;
 
-  dishTypes: Array<DishType> = [
-    {
-      id: 1,
-      name: 'Antipasti',
-      selected: false
-    },
-    {
-      id: 2,
-      name: 'Primi Piatti - Riso',
-      selected: false
-    },
-    {
-      id: 3,
-      name: 'Secondi Piatti - Carne',
-      selected: false
-    }
-  ];
+  dishTypes: Array<DishType> = [];
 
   constructor(private dtSrv : DishTypeService) {
+    this.requestStarted();
     dtSrv.getDishTypes()
-    .subscribe((dishTypes) => console.log(dishTypes));
+    .map((el) => el.results)
+    .subscribe((dishTypes) => {
+      this.dishTypes = dishTypes;
+      this.requestCompleted();
+    });
   }
 
   ngOnInit() {
   }
 
-  requestCompleted() {
+  private requestCompleted() {
     this.requestRunning = false;
+  }
+
+  private requestStarted() {
+    this.requestRunning = true;
   }
 
   toggleAll($event) {
