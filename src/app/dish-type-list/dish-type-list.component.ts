@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { DishTypeService } from '../dish-type.service';
 
@@ -18,6 +19,8 @@ export class DishTypeListComponent implements OnInit {
   private numSelected: number = 0;
   private requestRunning: boolean = false;
 
+  dtFilter : FormControl = new FormControl();
+
   dishTypes: Array<DishType> = [];
 
   constructor(private dtSrv : DishTypeService) {
@@ -31,6 +34,9 @@ export class DishTypeListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dtFilter.valueChanges
+    .debounceTime(500)
+    .subscribe((term) => console.log(term));
   }
 
   private requestCompleted() {

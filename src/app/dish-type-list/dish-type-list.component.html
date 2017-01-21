@@ -26,7 +26,7 @@
       </td>
       <td>
         <label class="sr-only"></label>
-        <input id="nameFilter" class="form-control w-50" type="text" name="nameFilter" placeholder="Filtra per nome">
+        <input [formControl]="dtFilter" id="nameFilter" class="form-control w-50" type="text" name="nameFilter" placeholder="Filtra per nome">
       </td>
     </tr>
     <tr *ngFor="let dt of dishTypes">
