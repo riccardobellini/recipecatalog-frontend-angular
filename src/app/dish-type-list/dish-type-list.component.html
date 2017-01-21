@@ -3,13 +3,8 @@
 <h1 class="page-heading">Categorie</h1>
 
 <div class="card">
-<!--   <div class="card-header">
-    <button class="btn btn-secondary">
-      <i class="fa fa-plus fa-sm" aria-hidden="true"></i> Crea
-    </button>
-  </div>
- -->  <div class="card-block">
-  <table class="table table-sm vertical-align">
+  <div class="card-block">
+  <table class="table table-sm">
     <thead>
     <tr>
       <th>
@@ -22,18 +17,16 @@
   </thead>
   <tbody>
     <tr *ngIf="dishTypes?.length > 0">
-      <td>
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input mr-sm-4" (change)="toggleAll($event)" [checked]="numSelected === dishTypes?.length">
-        </label>
-        <button *ngIf="numSelected > 0" type="button" class="btn btn-danger">
+      <td class="form-inline">
+        <label class="sr-only" for="checkAll"></label>
+        <input id="checkAll" type="checkbox" class="form-check-input mr-sm-4" (change)="toggleAll($event)" [checked]="numSelected === dishTypes?.length">
+        <button [disabled]="numSelected == 0" type="button" class="btn btn-danger">
           <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i> Elimina selezionate
         </button>
       </td>
       <td>
-        <label>
-          <input id="nameFilter" class="form-control" type="text" name="nameFilter" placeholder="Filtra per nome">
-        </label>
+        <label class="sr-only"></label>
+        <input id="nameFilter" class="form-control w-50" type="text" name="nameFilter" placeholder="Filtra per nome">
       </td>
     </tr>
     <tr *ngFor="let dt of dishTypes">
