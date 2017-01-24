@@ -49,14 +49,14 @@
   <nav *ngIf="paging?.pages?.length > 1" aria-label="Navigator">
     <ul class="pagination justify-content-center">
       <li class="page-item">
-        <a class="page-link" (click)="previousPage()" aria-label="Precedente">
+        <a class="page-link" (click)="previousPage()" href="" rcNoHref aria-label="Precedente">
           <span aria-hidden="true">&laquo;</span>
           <span class="sr-only">Precedente</span>
         </a>
       </li>
-      <li *ngFor="let pg of paging.pages; let i = index;" class="page-item"><a class="page-link" (click)="goToPage(i)">{{i + 1}}</a></li>
+      <li *ngFor="let pg of paging.pages; let i = index;" class="page-item"><a class="page-link" href="" rcNoHref (click)="goToPage(i)">{{i + 1}}</a></li>
       <li class="page-item">
-        <a class="page-link" (click)="nextPage()" aria-label="Successivo">
+        <a class="page-link" (click)="nextPage()" href="" rcNoHref aria-label="Successivo">
           <span aria-hidden="true">&raquo;</span>
           <span class="sr-only">Successivo</span>
         </a>

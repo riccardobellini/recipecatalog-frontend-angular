@@ -12,6 +12,7 @@ import { DishTypeListComponent } from './dish-type-list/dish-type-list.component
 import { SpinnerComponent } from './spinner/spinner.component';
 
 import { DishTypeService } from './dish-type.service';
+import { NoHrefDirective } from './no-href.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DishTypeService } from './dish-type.service';
     HeaderComponent,
     HomeComponent,
     DishTypeListComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    NoHrefDirective
   ],
   imports: [
     BrowserModule,
