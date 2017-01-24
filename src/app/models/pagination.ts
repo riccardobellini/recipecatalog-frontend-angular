@@ -1,6 +1,6 @@
 export interface PaginationResponseInfo {
   elCount : number;
-  pageCount : number;
+  pages : Array<number>;
   more : boolean;
 }
 

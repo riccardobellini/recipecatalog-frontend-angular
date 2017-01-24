@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 
 import { DishTypeService } from '../dish-type.service';
 
+import { PaginationResponseInfo } from '../models/pagination';
+
 export interface DishType {
   id: number;
   name: string;
@@ -22,13 +24,19 @@ export class DishTypeListComponent implements OnInit {
   dtFilter : FormControl = new FormControl();
 
   dishTypes: Array<DishType> = [];
+  paging: PaginationResponseInfo;
 
   constructor(private dtSrv : DishTypeService) {
     this.requestStarted();
     dtSrv.getDishTypes()
-    .map((el) => el.results)
-    .subscribe((dishTypes) => {
-      this.dishTypes = dishTypes;
+    .subscribe((resp) => {
+      this.paging = {
+        elCount : resp.pagination.total,
+        pages : Array(resp.pagination.pageCount).fill(1).map((x, i) => i),
+        more : resp.pagination.hasMore
+      };
+      console.log(this.paging);
+      this.dishTypes = resp.results;
       this.requestCompleted();
     });
   }
@@ -56,6 +64,18 @@ export class DishTypeListComponent implements OnInit {
     } else {
       this.numSelected = 0;
     }
+  }
+
+  previousPage() {
+    console.log("Previous!");
+  }
+
+  nextPage() {
+    console.log("Next!");
+  }
+
+  goToPage(page : number) {
+    console.log("Going to page " + (page + 1));
   }
 
 }
