@@ -35,7 +35,6 @@ export class DishTypeListComponent implements OnInit {
         pages : Array(resp.pagination.pageCount).fill(1).map((x, i) => i),
         more : resp.pagination.hasMore
       };
-      console.log(this.paging);
       this.dishTypes = resp.results;
       this.requestCompleted();
     });
