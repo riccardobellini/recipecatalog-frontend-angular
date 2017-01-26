@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { DishTypeService } from '../dish-type.service';
 
 import { PaginationResponseInfo } from '../models/pagination';
+
+import { Subscription, Observable } from 'rxjs/Rx';
 
 export interface DishType {
   id: number;
@@ -16,7 +18,7 @@ export interface DishType {
   templateUrl: './dish-type-list.component.html',
   styleUrls: ['./dish-type-list.component.scss']
 })
-export class DishTypeListComponent implements OnInit {
+export class DishTypeListComponent implements OnInit, OnDestroy {
 
   private numSelected : number = 0;
   private requestRunning : boolean = false;
@@ -27,24 +29,46 @@ export class DishTypeListComponent implements OnInit {
   dishTypes: Array<DishType> = [];
   paging: PaginationResponseInfo;
 
+  private subscription : Subscription;
+
   constructor(private dtSrv : DishTypeService) {
     this.requestStarted();
     dtSrv.getDishTypes()
     .subscribe((resp) => {
-      this.paging = {
-        elCount : resp.pagination.total,
-        pages : Array(resp.pagination.pageCount).fill(0).map((x, i) => i),
-        more : resp.pagination.hasMore
-      };
-      this.dishTypes = resp.results;
+      this.handleServiceResponse(resp);
       this.requestCompleted();
     });
   }
 
   ngOnInit() {
-    this.dtFilter.valueChanges
+    this.handleFilterChange();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  private handleServiceResponse(resp) {
+    this.paging = {
+      elCount : resp.pagination.total,
+      pages : Array(resp.pagination.pageCount).fill(0).map((x, i) => i),
+      more : resp.pagination.hasMore
+    };
+    this.dishTypes = resp.results;
+  }
+
+  private handleFilterChange() {
+    this.requestStarted();
+    this.subscription = this.dtFilter.valueChanges
     .debounceTime(500)
-    .subscribe((term) => console.log(term));
+    .distinctUntilChanged()
+    .switchMap((term) => this.dtSrv.searchDishTypes(term))
+    .subscribe((resp) => {
+      // reset page
+      this.currPage = 0;
+      this.handleServiceResponse(resp);
+      this.requestCompleted();
+    });
   }
 
   private requestCompleted() {
@@ -76,9 +100,14 @@ export class DishTypeListComponent implements OnInit {
 
   goToPage(page : number) {
     this.currPage = page;
+    var worker : Observable<any>;
+    if (this.dtFilter.value && this.dtFilter.value.trim().length > 0) {
+      worker = this.dtSrv.searchDishTypes(this.dtFilter.value, this.currPage);
+    } else {
+      worker = this.dtSrv.getDishTypes(this.currPage);
+    }
     this.requestStarted();
-    this.dtSrv.getDishTypes(this.currPage)
-    .subscribe((resp) => {
+    worker.subscribe((resp) => {
       this.dishTypes = resp.results;
       this.requestCompleted();
     });

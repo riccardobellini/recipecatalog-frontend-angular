@@ -11,19 +11,34 @@ export class DishTypeService {
   constructor(private http : Http) {}
 
   getDishTypes(page ?: number) {
-    var params : URLSearchParams = new URLSearchParams();
+    return this.http.get('http://localhost:3000/api/v1/dishTypes', {
+      search : this.handlePageParams(page)
+    })
+    .map((response) => response.json());
+  }
+
+  searchDishTypes(query: string, page ?: number) {
+    var parms : URLSearchParams = this.handlePageParams(page);
+    if (query && query.trim().length > 0) {
+      parms.set('q', query);
+    }
+    return this.http.get('http://localhost:3000/api/v1/dishTypes', {
+      search : parms
+    })
+    .map((response) => response.json());
+  }
+
+  private handlePageParams(page ?: number) : URLSearchParams {
+    var result : URLSearchParams = new URLSearchParams();
     var p : PaginationRequestParams;
     if (page) {
       p = PaginationRequestInfo.getPageRequestParams(page);
     } else {
       p = PaginationRequestInfo.getPageRequestParams(0);
     }
-    params.set('offset', p.offset);
-    params.set('limit', p.limit);
-    return this.http.get('http://localhost:3000/api/v1/dishTypes', {
-      search : params
-    })
-    .map((response) => response.json());
+    result.set('offset', p.offset);
+    result.set('limit', p.limit);
+    return result;
   }
 
 }
