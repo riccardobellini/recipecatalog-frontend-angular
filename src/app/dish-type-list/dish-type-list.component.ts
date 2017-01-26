@@ -18,8 +18,9 @@ export interface DishType {
 })
 export class DishTypeListComponent implements OnInit {
 
-  private numSelected: number = 0;
-  private requestRunning: boolean = false;
+  private numSelected : number = 0;
+  private requestRunning : boolean = false;
+  private currPage : number = 0;
 
   dtFilter : FormControl = new FormControl();
 
@@ -32,7 +33,7 @@ export class DishTypeListComponent implements OnInit {
     .subscribe((resp) => {
       this.paging = {
         elCount : resp.pagination.total,
-        pages : Array(resp.pagination.pageCount).fill(1).map((x, i) => i),
+        pages : Array(resp.pagination.pageCount).fill(0).map((x, i) => i),
         more : resp.pagination.hasMore
       };
       this.dishTypes = resp.results;
@@ -66,15 +67,21 @@ export class DishTypeListComponent implements OnInit {
   }
 
   previousPage() {
-    console.log("Previous!");
+    this.goToPage(this.currPage - 1);
   }
 
   nextPage() {
-    console.log("Next!");
+    this.goToPage(this.currPage + 1);
   }
 
   goToPage(page : number) {
-    console.log("Going to page " + (page + 1));
+    this.currPage = page;
+    this.requestStarted();
+    this.dtSrv.getDishTypes(this.currPage)
+    .subscribe((resp) => {
+      this.dishTypes = resp.results;
+      this.requestCompleted();
+    });
   }
 
 }

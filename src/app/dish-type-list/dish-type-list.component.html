@@ -48,18 +48,32 @@
 
   <nav *ngIf="paging?.pages?.length > 1" aria-label="Navigator">
     <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" (click)="previousPage()" href="" rcNoHref aria-label="Precedente">
+      <li class="page-item" [class.disabled]="currPage === 0">
+        <a *ngIf="currPage > 0" class="page-link" (click)="previousPage()" href="" rcNoHref aria-label="Precedente">
           <span aria-hidden="true">&laquo;</span>
           <span class="sr-only">Precedente</span>
         </a>
+        <span *ngIf="currPage === 0" class="page-link">
+          &laquo;
+          <span class="sr-only">Precedente</span>
+        </span>
       </li>
-      <li *ngFor="let pg of paging.pages; let i = index;" class="page-item"><a class="page-link" href="" rcNoHref (click)="goToPage(i)">{{i + 1}}</a></li>
-      <li class="page-item">
-        <a class="page-link" (click)="nextPage()" href="" rcNoHref aria-label="Successivo">
+      <li *ngFor="let pg of paging.pages; let i = index;" [class.active]="i === currPage" class="page-item">
+        <a *ngIf="i !== currPage" class="page-link" href="" rcNoHref (click)="goToPage(i)">{{i + 1}}</a>
+        <span *ngIf="i === currPage" class="page-link">
+          {{i + 1}}
+          <span class="sr-only">(current)</span>
+        </span>
+      </li>
+      <li class="page-item" [class.disabled]="currPage === paging.pages.length - 1">
+        <a *ngIf="currPage < paging.pages.length - 1" class="page-link" (click)="nextPage()" href="" rcNoHref aria-label="Successivo">
           <span aria-hidden="true">&raquo;</span>
           <span class="sr-only">Successivo</span>
         </a>
+        <span *ngIf="currPage === paging.pages.length - 1" class="page-link">
+          &raquo;
+          <span class="sr-only">Successivo</span>
+        </span>
       </li>
     </ul>
   </nav>
