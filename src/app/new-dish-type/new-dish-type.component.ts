@@ -1,5 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {DishType} from '../dish-type';
+import { DishTypeService } from '../dish-type.service';
 
 @Component({
   selector: 'rc-new-dish-type',
@@ -8,20 +9,25 @@ import {DishType} from '../dish-type';
 })
 export class NewDishTypeComponent implements OnInit {
 
-  @Output() cancelCreation = new EventEmitter<boolean>();
+  @Output() hideCreation = new EventEmitter<boolean>();
 
   private dishType: DishType = new DishType();
 
-  constructor() { }
+  constructor(private dtService: DishTypeService) { }
 
   ngOnInit() {
   }
 
   addDishType() {
-    console.log('Adding new dish type: ');
-    console.log(this.dishType);
+    this.dtService.createDishType(this.dishType)
+      .subscribe(status => {
+        if (status === 201) {
+          this.dishType.name = '';
+          this.hideCreation.emit(true);
+        }
+      });
   }
   cancelClicked() {
-    this.cancelCreation.emit(true);
+    this.hideCreation.emit(false);
   }
 }

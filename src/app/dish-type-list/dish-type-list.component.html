@@ -2,7 +2,7 @@
 
 <h1 class="page-heading">Categorie</h1>
 
-<rc-new-dish-type *ngIf="creationMode" (cancelCreation)="creationMode = false"></rc-new-dish-type>
+<rc-new-dish-type [hidden]="!creationMode" (hideCreation)="handleHideCreation($event)"></rc-new-dish-type>
 
 <div *ngIf="!creationMode" class="card">
   <div class="card-block">

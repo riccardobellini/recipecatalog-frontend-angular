@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 
 import { PaginationRequestInfo, PaginationRequestParams } from './models/pagination';
 
 import 'rxjs/Rx';
+import {DishType} from './dish-type';
 
 @Injectable()
 export class DishTypeService {
 
-  constructor(private http : Http) {}
+  constructor(private http: Http) {}
 
   getDishTypes(page ?: number) {
     return this.http.get('http://localhost:3000/api/v1/dishTypes', {
@@ -18,7 +19,7 @@ export class DishTypeService {
   }
 
   searchDishTypes(query: string, page ?: number) {
-    var parms : URLSearchParams = this.handlePageParams(page);
+    let parms: URLSearchParams = this.handlePageParams(page);
     if (query && query.trim().length > 0) {
       parms.set('q', query);
     }
@@ -27,10 +28,17 @@ export class DishTypeService {
     })
     .map((response) => response.json());
   }
+  createDishType(dt: DishType) {
+    let headers: Headers = new Headers({ 'Content-Type': 'application/json'});
+    console.log('Adding dish type...');
+    console.log(dt);
+    return this.http.post('http://localhost:3000/api/v1/dishTypes', dt, headers)
+      .map(response => response.status);
+  }
 
-  private handlePageParams(page ?: number) : URLSearchParams {
-    var result : URLSearchParams = new URLSearchParams();
-    var p : PaginationRequestParams;
+  private handlePageParams(page ?: number): URLSearchParams {
+    let result: URLSearchParams = new URLSearchParams();
+    let p: PaginationRequestParams;
     if (page) {
       p = PaginationRequestInfo.getPageRequestParams(page);
     } else {

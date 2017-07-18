@@ -1,7 +1,7 @@
 <form #newDTForm="ngForm">
   <div class="form-group">
     <label for="newDishTypeName">Nome categoria</label>
-    <input [(ngModel)]="dishType.name" name="dishTypeName" required type="text" class="form-control" id="newDishTypeName" placeholder="Pasta, Riso, Antipasti..."
+    <input [(ngModel)]="dishType.name" name="dishTypeName" type="text" class="form-control" id="newDishTypeName" placeholder="Pasta, Riso, Antipasti..."
            (keyup.esc)="cancelClicked()">
   </div>
   <div class="pull-right">

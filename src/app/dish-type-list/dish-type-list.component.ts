@@ -34,12 +34,16 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(private dtSrv: DishTypeService) {
+    this.initDishTypes();
+  }
+
+  private initDishTypes() {
     this.requestStarted();
-    dtSrv.getDishTypes()
-    .subscribe((resp) => {
-      this.handleServiceResponse(resp);
-      this.requestCompleted();
-    });
+    this.dtSrv.getDishTypes()
+      .subscribe((resp) => {
+        this.handleServiceResponse(resp);
+        this.requestCompleted();
+      });
   }
 
   ngOnInit() {
@@ -113,6 +117,12 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
       this.dishTypes = resp.results;
       this.requestCompleted();
     });
+  }
+  handleHideCreation($event) {
+    if ($event) {
+      this.initDishTypes();
+    }
+    this.creationMode = false;
   }
 
 }
