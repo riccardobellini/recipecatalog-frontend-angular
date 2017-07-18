@@ -1,11 +1,11 @@
-<form>
+<form #newDTForm="ngForm">
   <div class="form-group">
     <label for="newDishTypeName">Nome categoria</label>
-    <input #dishTypeName rcAutofocus type="text" class="form-control" id="newDishTypeName" placeholder="Pasta, Riso, Antipasti..."
-           (keyup.enter)="addDishType()" (keyup.esc)="cancelClicked()">
+    <input [(ngModel)]="dishType.name" name="dishTypeName" required type="text" class="form-control" id="newDishTypeName" placeholder="Pasta, Riso, Antipasti..."
+           (keyup.esc)="cancelClicked()">
   </div>
   <div class="pull-right">
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" (click)="addDishType()" [class.disabled]="dishType?.name?.length < 1">
       <i aria-hidden="true"></i>Aggiungi
     </button>
     <button class="btn btn-secondary" (click)="cancelClicked()">
