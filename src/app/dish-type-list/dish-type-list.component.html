@@ -2,13 +2,15 @@
 
 <h1 class="page-heading">Categorie</h1>
 
-<div class="card">
+<rc-new-dish-type *ngIf="creationMode" (cancelCreation)="creationMode = false"></rc-new-dish-type>
+
+<div *ngIf="!creationMode" class="card">
   <div class="card-block">
   <table class="table table-sm">
     <thead>
     <tr>
       <th>
-        <button class="btn btn-secondary">
+        <button class="btn btn-secondary" (click)="creationMode = true">
           <i class="fa fa-plus fa-sm" aria-hidden="true"></i> Crea
         </button>
       </th>

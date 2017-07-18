@@ -20,18 +20,20 @@ export interface DishType {
 })
 export class DishTypeListComponent implements OnInit, OnDestroy {
 
-  private numSelected : number = 0;
-  private requestRunning : boolean = false;
-  private currPage : number = 0;
+  private numSelected = 0;
+  private requestRunning = false;
+  private currPage = 0;
 
-  dtFilter : FormControl = new FormControl();
+  dtFilter: FormControl = new FormControl();
 
   dishTypes: Array<DishType> = [];
   paging: PaginationResponseInfo;
 
-  private subscription : Subscription;
+  creationMode = false;
 
-  constructor(private dtSrv : DishTypeService) {
+  private subscription: Subscription;
+
+  constructor(private dtSrv: DishTypeService) {
     this.requestStarted();
     dtSrv.getDishTypes()
     .subscribe((resp) => {
@@ -98,9 +100,9 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
     this.goToPage(this.currPage + 1);
   }
 
-  goToPage(page : number) {
+  goToPage(page: number) {
     this.currPage = page;
-    var worker : Observable<any>;
+    let worker: Observable<any>;
     if (this.dtFilter.value && this.dtFilter.value.trim().length > 0) {
       worker = this.dtSrv.searchDishTypes(this.dtFilter.value, this.currPage);
     } else {
