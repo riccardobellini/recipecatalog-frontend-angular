@@ -6,8 +6,9 @@ import { DishTypeService } from '../dish-type.service';
 import { PaginationResponseInfo } from '../models/pagination';
 
 import { Subscription, Observable } from 'rxjs/Rx';
+import {DishType} from '../dish-type';
 
-export interface DishType {
+export interface DishTypeIntf {
   id: number;
   name: string;
   selected: boolean;
@@ -23,13 +24,14 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
   private numSelected = 0;
   private requestRunning = false;
   private currPage = 0;
-
+  private selectedDT: DishType = new DishType();
   dtFilter: FormControl = new FormControl();
 
-  dishTypes: Array<DishType> = [];
+  dishTypes: Array<DishTypeIntf> = [];
   paging: PaginationResponseInfo;
 
-  creationMode = false;
+  private creationMode = false;
+  private editingMode = false;
 
   private subscription: Subscription;
 
@@ -123,6 +125,14 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
       this.initDishTypes();
     }
     this.creationMode = false;
+    this.editingMode = false;
+  }
+  editDishType(elem: DishTypeIntf) {
+    this.editingMode = true;
+    this.selectedDT = {
+      id: elem.id,
+      name: elem.name
+    };
   }
 
 }

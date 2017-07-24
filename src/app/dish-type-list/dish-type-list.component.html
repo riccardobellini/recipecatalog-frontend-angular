@@ -1,13 +1,15 @@
 <rc-spinner [isRunning]="requestRunning"></rc-spinner>
 
 <h1 class="page-heading">
-  <div *ngIf="!creationMode">Categorie</div>
+  <div *ngIf="!creationMode && !editingMode">Categorie</div>
   <div *ngIf="creationMode">Nuova Categoria</div>
+  <div *ngIf="editingMode">Modifica Categoria</div>
 </h1>
 
 <rc-new-dish-type [hidden]="!creationMode" (hideCreation)="handleHideCreation($event)"></rc-new-dish-type>
+<rc-new-dish-type [hidden]="!editingMode" [isEdit]="true" [dishType]="selectedDT" (hideCreation)="handleHideCreation($event)"></rc-new-dish-type>
 
-<div *ngIf="!creationMode" class="card">
+<div *ngIf="!creationMode && !editingMode" class="card">
   <div class="card-block">
   <table class="table table-sm">
     <thead>
@@ -39,7 +41,7 @@
         <label class="form-check-label">
           <input type="checkbox" class="form-check-input mr-sm-4" [(ngModel)]="dt.selected" (change)="$event.target.checked ? numSelected = numSelected + 1 : numSelected = numSelected - 1">
         </label>
-        <button type="button" class="btn btn-secondary mr-sm-2">
+        <button type="button" class="btn btn-secondary mr-sm-2" (click)="editDishType(dt)">
           <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
         </button>
         <button type="button" class="btn btn-danger">

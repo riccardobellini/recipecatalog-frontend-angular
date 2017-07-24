@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {DishType} from '../dish-type';
 import { DishTypeService } from '../dish-type.service';
 
@@ -11,21 +11,27 @@ export class NewDishTypeComponent implements OnInit {
 
   @Output() hideCreation = new EventEmitter<boolean>();
 
-  private dishType: DishType = new DishType();
+  @Input() dishType: DishType = new DishType();
+  @Input() isEdit = false;
 
   constructor(private dtService: DishTypeService) { }
 
   ngOnInit() {
   }
 
-  addDishType() {
-    this.dtService.createDishType(this.dishType)
-      .subscribe(status => {
-        if (status === 201) {
-          this.dishType.name = '';
-          this.hideCreation.emit(true);
-        }
-      });
+  saveDishType() {
+    if (!this.isEdit) {
+      this.dtService.createDishType(this.dishType)
+        .subscribe(status => {
+          if (status === 201) {
+            this.dishType.name = '';
+            this.hideCreation.emit(true);
+          }
+        });
+    } else {
+      console.log('Editing...');
+      console.log(this.dishType);
+    }
   }
   cancelClicked() {
     this.hideCreation.emit(false);

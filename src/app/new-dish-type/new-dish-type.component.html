@@ -5,7 +5,10 @@
            (keyup.esc)="cancelClicked()">
   </div>
   <div class="pull-right">
-    <button type="submit" class="btn btn-primary" (click)="addDishType()" [class.disabled]="dishType?.name?.length < 1">
+    <button *ngIf="isEdit" type="submit" class="btn btn-primary" (click)="saveDishType()" [class.disabled]="dishType?.name?.length < 1">
+      <i aria-hidden="true"></i>Modifica
+    </button>
+    <button *ngIf="!isEdit" type="submit" class="btn btn-primary" (click)="saveDishType()" [class.disabled]="dishType?.name?.length < 1">
       <i aria-hidden="true"></i>Aggiungi
     </button>
     <button class="btn btn-secondary" (click)="cancelClicked()">
