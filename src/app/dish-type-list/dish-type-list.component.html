@@ -1,6 +1,9 @@
 <rc-spinner [isRunning]="requestRunning"></rc-spinner>
 
-<h1 class="page-heading">Categorie</h1>
+<h1 class="page-heading">
+  <div *ngIf="!creationMode">Categorie</div>
+  <div *ngIf="creationMode">Nuova Categoria</div>
+</h1>
 
 <rc-new-dish-type [hidden]="!creationMode" (hideCreation)="handleHideCreation($event)"></rc-new-dish-type>
 
@@ -14,7 +17,7 @@
           <i class="fa fa-plus fa-sm" aria-hidden="true"></i> Crea
         </button>
       </th>
-      <th class="w-70">Nome</th>
+      <th class="w-75">Nome</th>
     </tr>
   </thead>
   <tbody>
@@ -23,7 +26,7 @@
         <label class="sr-only" for="checkAll"></label>
         <input id="checkAll" type="checkbox" class="form-check-input mr-sm-4" (change)="toggleAll($event)" [checked]="numSelected === dishTypes?.length">
         <button [disabled]="numSelected == 0" type="button" class="btn btn-danger">
-          <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i> Elimina selezionate
+          <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i>
         </button>
       </td>
       <td>
@@ -37,10 +40,10 @@
           <input type="checkbox" class="form-check-input mr-sm-4" [(ngModel)]="dt.selected" (change)="$event.target.checked ? numSelected = numSelected + 1 : numSelected = numSelected - 1">
         </label>
         <button type="button" class="btn btn-secondary mr-sm-2">
-          <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i> Modifica
+          <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
         </button>
         <button type="button" class="btn btn-danger">
-          <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i> Elimina
+          <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i>
         </button>
       </td>
       <td>{{dt.name}}</td>
