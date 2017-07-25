@@ -24,14 +24,19 @@ export class NewDishTypeComponent implements OnInit {
       this.dtService.createDishType(this.dishType)
         .subscribe(status => {
           if (status === 201) {
-            this.dishType.name = '';
-            this.hideCreation.emit(true);
+            this.clearFieldsAndHide();
           }
         });
     } else {
-      console.log('Editing...');
-      console.log(this.dishType);
+      this.dtService.editDishType(this.dishType)
+        .subscribe(status => {
+          this.clearFieldsAndHide();
+        });
     }
+  }
+  private clearFieldsAndHide() {
+    this.dishType.name = '';
+    this.hideCreation.emit(true);
   }
   cancelClicked() {
     this.hideCreation.emit(false);

@@ -30,10 +30,17 @@ export class DishTypeService {
   }
   createDishType(dt: DishType) {
     let headers: Headers = new Headers({ 'Content-Type': 'application/json'});
-    console.log('Adding dish type...');
-    console.log(dt);
     return this.http.post('http://localhost:3000/api/v1/dishTypes', dt, headers)
       .map(response => response.status);
+  }
+  editDishType(dt: DishType) {
+    let headers: Headers = new Headers({ 'Content-Type': 'application/json'});
+    let url = `http://localhost:3000/api/v1/dishTypes/${dt.id}`;
+    let submit: DishType = {
+      name: dt.name
+    };
+    return this.http.put(url, submit, headers)
+      .map(response => response.status);;
   }
 
   private handlePageParams(page ?: number): URLSearchParams {
