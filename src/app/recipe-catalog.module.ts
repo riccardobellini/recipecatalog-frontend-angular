@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { RecipeCatalogComponent } from './recipe-catalog.component';
 import { HeaderComponent } from './header/header.component';
@@ -30,7 +31,8 @@ import { NewDishTypeComponent } from './new-dish-type/new-dish-type.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RoutingModule
+    RoutingModule,
+    NgbModule.forRoot()
   ],
   providers: [
     DishTypeService

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, Headers } from '@angular/http';
+import {Http, Response, URLSearchParams, Headers, RequestOptionsArgs} from '@angular/http';
 
 import { PaginationRequestInfo, PaginationRequestParams } from './models/pagination';
 
@@ -8,6 +8,9 @@ import {DishType} from './dish-type';
 
 @Injectable()
 export class DishTypeService {
+
+  headers: Headers = new Headers({ 'Content-Type': 'application/json'});
+  // options: RequestOptions = new RequestOptions({ headers: this.headers });
 
   constructor(private http: Http) {}
 
@@ -29,17 +32,17 @@ export class DishTypeService {
     .map((response) => response.json());
   }
   createDishType(dt: DishType) {
-    let headers: Headers = new Headers({ 'Content-Type': 'application/json'});
-    return this.http.post('http://localhost:3000/api/v1/dishTypes', dt, headers)
+    let options: RequestOptionsArgs = {headers: this.headers};
+    return this.http.post('http://localhost:3000/api/v1/dishTypes', dt, options)
       .map(response => response.status);
   }
   editDishType(dt: DishType) {
-    let headers: Headers = new Headers({ 'Content-Type': 'application/json'});
+    let options: RequestOptionsArgs = {headers: this.headers};
     let url = `http://localhost:3000/api/v1/dishTypes/${dt.id}`;
     let submit: DishType = {
       name: dt.name
     };
-    return this.http.put(url, submit, headers)
+    return this.http.put(url, submit, options)
       .map(response => response.status);;
   }
 
