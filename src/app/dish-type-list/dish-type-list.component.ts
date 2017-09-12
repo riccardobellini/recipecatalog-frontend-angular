@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 import { DishTypeService } from '../dish-type.service';
 
 import { PaginationResponseInfo } from '../models/pagination';
@@ -35,7 +37,7 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private dtSrv: DishTypeService) {
+  constructor(private dtSrv: DishTypeService, private modalService: NgbModal) {
     this.initDishTypes();
   }
 
@@ -133,6 +135,21 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
       id: elem.id,
       name: elem.name
     };
+  }
+  deleteDishType(id) {
+    console.log(`Deleting category ${id}`);
+    this.dtSrv.deleteDishType(id).subscribe(resp => {
+      console.log(resp);
+      this.initDishTypes();
+    });
+  }
+  showDelete(content, dt: DishType) {
+    this.selectedDT = dt;
+    this.modalService.open(content).result.then((result) => {
+      if (result) {
+        this.deleteDishType(result);
+      }
+    });
   }
 
 }

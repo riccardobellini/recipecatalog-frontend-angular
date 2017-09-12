@@ -45,6 +45,13 @@ export class DishTypeService {
     return this.http.put(url, submit, options)
       .map(response => response.status);;
   }
+  deleteDishType(id: number) {
+    if (id && id >= 0) {
+      let url = `http://localhost:3000/api/v1/dishTypes/${id}`;
+      return this.http.delete(url)
+        .map(response => response.status);
+    }
+  }
 
   private handlePageParams(page ?: number): URLSearchParams {
     let result: URLSearchParams = new URLSearchParams();

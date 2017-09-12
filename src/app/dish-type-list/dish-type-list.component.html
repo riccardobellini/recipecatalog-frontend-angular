@@ -44,7 +44,7 @@
         <button type="button" class="btn btn-secondary mr-sm-2" (click)="editDishType(dt)">
           <i class="fa fa-pencil-square-o fa-sm" aria-hidden="true"></i>
         </button>
-        <button type="button" class="btn btn-danger">
+        <button type="button" class="btn btn-danger" (click)="showDelete(content, dt)">
           <i class="fa fa-trash-o fa-sm" aria-hidden="true"></i>
         </button>
       </td>
@@ -87,3 +87,20 @@
 
   </div>
 </div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Cancella categoria</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Eliminare la categoria "{{selectedDT.name}}"?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c(selectedDT.id)">OK</button>
+    <button type="button" class="btn btn-secondary" (click)="c()">Annulla</button>
+  </div>
+</ng-template>
