@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, URLSearchParams, Headers, RequestOptionsArgs} from '@angular/http';
+import { HttpParams } from '@angular/common/http';
 
 import { PaginationRequestInfo, PaginationRequestParams } from './models/pagination';
 
@@ -64,6 +65,16 @@ export class DishTypeService {
     result.set('offset', p.offset);
     result.set('limit', p.limit);
     return result;
+  }
+
+  deleteDishTypes(dts: Array<number>) {
+    if (dts && dts.length > 0) {
+      let param: URLSearchParams = new URLSearchParams();
+      param.set('id', dts.join(','));
+      let url = 'http://localhost:3000/api/v1/dishTypes/';
+      return this.http.delete(url, { params: param })
+        .map(response => response.status);
+    }
   }
 
 }

@@ -151,5 +151,29 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
       }
     });
   }
+  showDeleteAll(content) {
+    this.modalService.open(content).result.then((elem) => {
+      if (elem) {
+        let toDelete = elem.filter((el) => {
+          return el && el.id && el.selected;
+        }).map((el) => {
+          if (el && el.selected && el.id) {
+            return el.id;
+          }
+        });
+        if (toDelete && toDelete.length > 0) {
+          this.deleteDishTypes(toDelete);
+        }
+      }
+    });
+  }
+
+  deleteDishTypes(ids) {
+    console.log(`Deleting categories ${ids}`);
+    this.dtSrv.deleteDishTypes(ids).subscribe(resp => {
+      console.log(resp);
+      this.initDishTypes();
+    });
+  }
 
 }
