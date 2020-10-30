@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RecipeCatalogComponent } from './recipe-catalog.component';
 import { HeaderComponent } from './header/header.component';
@@ -29,7 +29,7 @@ import { NewDishTypeComponent } from './new-dish-type/new-dish-type.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     RoutingModule
   ],
   providers: [

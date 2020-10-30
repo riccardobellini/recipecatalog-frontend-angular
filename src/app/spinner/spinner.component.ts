@@ -8,7 +8,7 @@ import { Component, OnDestroy, Input } from '@angular/core';
 export class SpinnerComponent implements OnDestroy {
 
   private currentTimeout: NodeJS.Timer;
-  private isDelayedRunning: boolean = false;
+    isDelayedRunning: boolean = false;
 
   @Input()
   public delay: number = 300;

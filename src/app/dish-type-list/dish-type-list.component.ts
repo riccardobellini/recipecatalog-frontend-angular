@@ -1,3 +1,5 @@
+
+import {switchMap, distinctUntilChanged, debounceTime} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
@@ -5,7 +7,7 @@ import { DishTypeService } from '../dish-type.service';
 
 import { PaginationResponseInfo } from '../models/pagination';
 
-import { Subscription, Observable } from 'rxjs/Rx';
+import { Subscription, Observable } from 'rxjs';
 import {DishType} from '../dish-type';
 
 export interface DishTypeIntf {
@@ -22,18 +24,19 @@ export interface DishTypeIntf {
 export class DishTypeListComponent implements OnInit, OnDestroy {
 
   private numSelected = 0;
-  private requestRunning = false;
+  requestRunning = false;
   private currPage = 0;
-  private selectedDT: DishType = new DishType();
+  selectedDT: DishType = new DishType();
   dtFilter: FormControl = new FormControl();
 
   dishTypes: Array<DishTypeIntf> = [];
   paging: PaginationResponseInfo;
 
-  private creationMode = false;
-  private editingMode = false;
+  creationMode = false;
+  editingMode = false;
 
   private subscription: Subscription;
+
 
   constructor(private dtSrv: DishTypeService) {
     this.initDishTypes();
@@ -67,10 +70,10 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
 
   private handleFilterChange() {
     this.requestStarted();
-    this.subscription = this.dtFilter.valueChanges
-    .debounceTime(500)
-    .distinctUntilChanged()
-    .switchMap((term) => this.dtSrv.searchDishTypes(term))
+    this.subscription = this.dtFilter.valueChanges.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    switchMap((term) => this.dtSrv.searchDishTypes(term)),)
     .subscribe((resp) => {
       // reset page
       this.currPage = 0;
