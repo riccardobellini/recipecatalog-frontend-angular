@@ -5,8 +5,8 @@ export interface PaginationResponseInfo {
 }
 
 export interface PaginationRequestParams {
-  offset : string;
-  limit : string;
+  page: number;
+  size: number;
 }
 
 export const PagingParams = {
@@ -18,14 +18,14 @@ export class PaginationRequestInfo {
   static getPageRequestParams(page : number) : PaginationRequestParams {
     if (page && page >= 0) {
       return {
-        offset : (page * PagingParams.pageElemNum).toString(),
-        limit: (PagingParams.pageElemNum).toString()
+        page,
+        size: PagingParams.pageElemNum
       }
     }
 
     return {
-      offset : '0',
-      limit : (PagingParams.pageElemNum).toString()
+      page: 0,
+      size: PagingParams.pageElemNum
     };
   }
 }

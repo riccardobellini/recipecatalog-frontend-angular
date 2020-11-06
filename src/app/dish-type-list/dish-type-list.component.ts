@@ -61,11 +61,11 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
 
   private handleServiceResponse(resp) {
     this.paging = {
-      elCount : resp.pagination.total,
-      pages : Array(resp.pagination.pageCount).fill(0).map((x, i) => i),
-      more : resp.pagination.hasMore
+      elCount: resp.totalElements,
+      pages: Array(resp.totalPages).fill(0).map((x, i) => i),
+      more: !resp.last
     };
-    this.dishTypes = resp.results;
+    this.dishTypes = resp.content;
   }
 
   private handleFilterChange() {
@@ -119,7 +119,7 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
     }
     this.requestStarted();
     worker.subscribe((resp) => {
-      this.dishTypes = resp.results;
+      this.dishTypes = resp.content;
       this.requestCompleted();
     });
   }

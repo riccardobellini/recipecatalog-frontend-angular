@@ -59,9 +59,7 @@ export class DishTypeService {
     } else {
       p = PaginationRequestInfo.getPageRequestParams(0);
     }
-    result.set('offset', p.offset);
-    result.set('limit', p.limit);
-    return result;
+    return result.set('page', p.page.toString()).set('size', p.size.toString());
   }
 
 }
