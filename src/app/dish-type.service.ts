@@ -51,6 +51,15 @@ export class DishTypeService {
     );
   }
 
+  deleteDishType(dt: DishType) {
+    const url = `http://localhost:3000/api/v1/dishTypes/${dt.id}`;
+    return this.http.delete(url, {
+      observe: 'response'
+    }).pipe(
+      map(response => response.status)
+    );
+  }
+
   private handlePageParams(page?: number): HttpParams {
     let result: HttpParams = new HttpParams();
     let p: PaginationRequestParams;

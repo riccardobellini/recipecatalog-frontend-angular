@@ -1,5 +1,5 @@
 
-import {switchMap, distinctUntilChanged, debounceTime} from 'rxjs/operators';
+import { switchMap, distinctUntilChanged, debounceTime, catchError } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
@@ -136,6 +136,18 @@ export class DishTypeListComponent implements OnInit, OnDestroy {
       id: elem.id,
       name: elem.name
     };
+  }
+
+  deleteDishType(dt: DishTypeIntf) {
+    // TODO show modal confirmation
+    this.requestStarted();
+    this.dtSrv.deleteDishType(dt).pipe(
+      switchMap(_ => this.dtSrv.getDishTypes()),
+      catchError(_ => this.dtSrv.getDishTypes())
+    ).subscribe((resp) => {
+      this.handleServiceResponse(resp);
+      this.requestCompleted();
+    });
   }
 
 }
