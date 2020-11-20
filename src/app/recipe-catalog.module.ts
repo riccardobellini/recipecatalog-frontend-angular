@@ -14,6 +14,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { DishTypeService } from './dish-type.service';
 import { NoHrefDirective } from './no-href.directive';
 import { NewDishTypeComponent } from './new-dish-type/new-dish-type.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NewDishTypeComponent } from './new-dish-type/new-dish-type.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RoutingModule
+    RoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     DishTypeService
