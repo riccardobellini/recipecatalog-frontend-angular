@@ -5,11 +5,12 @@ import { MatTable } from '@angular/material/table';
 import { DishTypeService } from 'app/dish-type.service';
 import { DishTypesDataSource } from './dish-types-datasource';
 import { DishTypeItem } from "../dish-type";
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'dish-types',
   templateUrl: './dish-types.component.html',
-  styleUrls: ['./dish-types.component.css']
+  styleUrls: ['./dish-types.component.scss']
 })
 export class DishTypesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -17,8 +18,10 @@ export class DishTypesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table: MatTable<DishTypeItem>;
   dataSource: DishTypesDataSource;
 
-  constructor(private dtService: DishTypeService) {
+  filterInput: FormControl;
 
+  constructor(private dtService: DishTypeService) {
+    this.filterInput = new FormControl('');
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
