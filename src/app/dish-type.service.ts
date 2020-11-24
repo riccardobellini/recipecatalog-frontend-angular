@@ -54,12 +54,12 @@ export class DishTypeService {
     });
   }
 
-  searchDishTypes(query: string, page ?: number) {
-    let parms: HttpParams = this.handlePageParams(page);
+  searchDishTypes(query: string, page ?: number, pageSize ?: number): Observable<DishTypePagedResponse> {
+    let parms: HttpParams = this.handlePageParams(page, pageSize);
     if (query && query.trim().length > 0) {
-      parms.set('q', query);
+      parms = parms.set('q', query);
     }
-    return this.http.get('http://localhost:3000/api/v1/dishTypes', {
+    return this.http.get<DishTypePagedResponse>('http://localhost:3000/api/v1/dishTypes', {
       params: parms
     });
   }

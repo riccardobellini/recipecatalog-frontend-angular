@@ -2,7 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map, switchMap } from 'rxjs/operators';
-import { Observable, merge, of } from 'rxjs';
+import { Observable, merge, of, EMPTY, Subscription } from 'rxjs';
 import { DishTypeService } from 'app/dish-type.service';
 
 import { DishTypeItem } from "../dish-type";
@@ -19,9 +19,15 @@ export class DishTypesDataSource extends DataSource<DishTypeItem> {
   sort: MatSort;
 
   totalElements: number;
+  private filterTextChangeSubscription: Subscription;
 
-  constructor(private dtService: DishTypeService) {
+  constructor(private dtService: DishTypeService, private filterChanged$: Observable<string>) {
     super();
+
+    this.filterTextChangeSubscription = filterChanged$.subscribe(_ => {
+      // return to first page when filter changes
+      this.paginator.firstPage();
+    });
   }
 
   /**
@@ -53,9 +59,20 @@ export class DishTypesDataSource extends DataSource<DishTypeItem> {
       })
     );
 
+    const filterChange$ = this.filterChanged$.pipe(
+      switchMap(filter => {
+        return this.dtService.searchDishTypes(filter, this.paginator.pageIndex, this.paginator.pageSize);
+      }),
+      switchMap(resp => {
+        this.totalElements = resp.totalElements;
+        return of(resp.content);
+      })
+    )
+
     const dataMutations = [
       initialData$,
-      pageChanges$
+      pageChanges$,
+      filterChange$
     ];
 
     return merge(...dataMutations).pipe(
@@ -70,6 +87,8 @@ export class DishTypesDataSource extends DataSource<DishTypeItem> {
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
-  disconnect() {}
+  disconnect() {
+    this.filterTextChangeSubscription.unsubscribe();
+  }
 
 }
