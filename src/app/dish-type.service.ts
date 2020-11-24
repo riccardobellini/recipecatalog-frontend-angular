@@ -1,21 +1,56 @@
 
 import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { PaginationRequestInfo, PaginationRequestParams } from './models/pagination';
+import { PaginationRequestParams } from './models/pagination';
 
 import 'rxjs/Rx';
-import {DishType} from './dish-type';
+import {DishType, DishTypeItem} from './dish-type';
+import { Observable } from 'rxjs/Rx';
+
+interface FullDishTypeItem extends DishTypeItem {
+  creationTime: string,
+  lastModificationTime: string
+};
+
+export interface DishTypePagedResponse {
+  content: FullDishTypeItem[],
+  pageable: {
+    sort: {
+      sorted: boolean,
+      unsorted: boolean,
+      empty: boolean
+    },
+    pageSize: number,
+    pageNumber: number,
+    offset: number,
+    unpaged: boolean,
+    paged: boolean
+  },
+  totalElements: number,
+  totalPages: number,
+  last: boolean,
+  first: boolean,
+  sort: {
+      sorted: boolean,
+      unsorted: boolean,
+      empty: boolean
+  },
+  numberOfElements: number,
+  size: number,
+  number: number,
+  empty: boolean
+}
 
 @Injectable()
 export class DishTypeService {
 
   constructor(private http: HttpClient) { }
 
-  getDishTypes(page ?: number) {
-    return this.http.get('http://localhost:3000/api/v1/dishTypes', {
-      params: this.handlePageParams(page)
+  getDishTypes(page ?: number, pageSize ?: number): Observable<DishTypePagedResponse> {
+    return this.http.get<DishTypePagedResponse>('http://localhost:3000/api/v1/dishTypes', {
+      params: this.handlePageParams(page, pageSize)
     });
   }
 
@@ -60,14 +95,12 @@ export class DishTypeService {
     );
   }
 
-  private handlePageParams(page?: number): HttpParams {
-    let result: HttpParams = new HttpParams();
-    let p: PaginationRequestParams;
-    if (page) {
-      p = PaginationRequestInfo.getPageRequestParams(page);
-    } else {
-      p = PaginationRequestInfo.getPageRequestParams(0);
-    }
+  private handlePageParams(page?: number, pageSize?: number): HttpParams {
+    const result: HttpParams = new HttpParams();
+    const p: PaginationRequestParams = {
+      page,
+      size: pageSize
+    };
     return result.set('page', p.page.toString()).set('size', p.size.toString());
   }
 

@@ -16,6 +16,24 @@ import { NoHrefDirective } from './no-href.directive';
 import { NewDishTypeComponent } from './new-dish-type/new-dish-type.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NavigationComponent } from './navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatListModule } from '@angular/material/list';
+import { HomeDashboardComponent } from './home-dashboard/home-dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { DishTypesComponent } from './dish-types/dish-types.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 @NgModule({
   declarations: [
     RecipeCatalogComponent,
@@ -24,7 +42,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DishTypeListComponent,
     SpinnerComponent,
     NoHrefDirective,
-    NewDishTypeComponent
+    NewDishTypeComponent,
+    NavigationComponent,
+    HomeDashboardComponent,
+    DishTypesComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +53,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     RoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatSidenavModule,
+    FlexLayoutModule,
+    LayoutModule,
+    MatListModule,
+    MatGridListModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     DishTypeService

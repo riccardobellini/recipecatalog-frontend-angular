@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { DishTypeListComponent } from './dish-type-list/dish-type-list.component';
+import { DishTypesComponent } from './dish-types/dish-types.component';
+import { HomeDashboardComponent } from './home-dashboard/home-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent},
-  { path: 'dishTypes', component: DishTypeListComponent}
+  { path: 'home', component: HomeDashboardComponent},
+  { path: 'dishTypes', component: DishTypesComponent}
 ];
 
 @NgModule({

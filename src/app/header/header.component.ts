@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'rc-header',
@@ -6,8 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Output()
+  open: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
+
+  clickMenu(): void {
+    this.open.emit(true);
+  }
 
   ngOnInit() {
   }

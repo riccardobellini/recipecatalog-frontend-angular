@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./recipe-catalog.component.scss']
 })
 export class RecipeCatalogComponent {
-  title = 'Hello World!';
+  isSidenavOpen: boolean = true;
+  openSidenav($event): void {
+    this.isSidenavOpen = !this.isSidenavOpen;
+    console.log('navOpen', $event);
+  }
 }

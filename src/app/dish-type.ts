@@ -1,3 +1,8 @@
+export interface DishTypeItem {
+  name: string;
+  id: number;
+}
+
 export class DishType {
 
   constructor();
