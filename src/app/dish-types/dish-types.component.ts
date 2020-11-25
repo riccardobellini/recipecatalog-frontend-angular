@@ -8,6 +8,8 @@ import { DishTypeItem } from "../dish-type";
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEditDishTypeComponent } from 'app/add-edit-dish-type/add-edit-dish-type.component';
 
 @Component({
   selector: 'dish-types',
@@ -32,7 +34,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
     return this._dishTypes$.asObservable();
   }
 
-  constructor(private dtService: DishTypeService) {
+  constructor(private dtService: DishTypeService, private dialog: MatDialog) {
     this._dishTypes$ = new BehaviorSubject([]);
     this.filterInput = new FormControl('');
 
@@ -66,6 +68,19 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
 
   editDishType(dt: DishTypeItem) {
     console.log('Edit', dt);
+  }
+
+  addDishType = () => {
+    const dialog = this.dialog.open(AddEditDishTypeComponent);
+
+    dialog.afterClosed().subscribe(
+      result => {
+        if (result) {
+          // TODO
+          console.log(result);
+        }
+      }
+    )
   }
 
 

@@ -33,6 +33,8 @@ import { DishTypesComponent } from './dish-types/dish-types.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-type.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { MatSortModule } from '@angular/material/sort';
     NewDishTypeComponent,
     NavigationComponent,
     HomeDashboardComponent,
-    DishTypesComponent
+    DishTypesComponent,
+    AddEditDishTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule
   ],
   providers: [
     DishTypeService

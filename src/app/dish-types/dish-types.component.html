@@ -1,14 +1,21 @@
 <div id="dish-types">
 
   <mat-toolbar class="header">
-    <mat-toolbar-row fxLayoutAlign="center center">
-      <div class="search-wrapper mt-16 mt-sm-0">
+    <mat-toolbar-row>
+      <div>
+        <button mat-fab aria-label="Add dish type" (click)="addDishType()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div fxFlex="1 0 auto" fxLayout fxLayoutAlign="center center">
+        <div class="search-wrapper mt-16 mt-sm-0">
 
-        <div class="search" fxFlex fxLayoutAlign="center center">
-          <mat-icon>search</mat-icon>
-          <input [formControl]="filterInput" placeholder="Filtra categorie">
+          <div class="search" fxFlex fxLayoutAlign="center center">
+            <mat-icon>search</mat-icon>
+            <input class="mat-body" [formControl]="filterInput" placeholder="Filtra categorie">
+          </div>
+
         </div>
-
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
