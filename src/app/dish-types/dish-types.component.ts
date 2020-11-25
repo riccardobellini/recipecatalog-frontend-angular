@@ -40,7 +40,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', 'actions'];
 
   ngOnInit() {
     this.dataSource = new DishTypesDataSource(this.dtService, this.filterTextChanged.asObservable());
@@ -54,6 +54,13 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
     });
   }
 
+  deleteDishType(dt: DishTypeItem) {
+    console.log('Delete', dt);
+  }
+
+  editDishType(dt: DishTypeItem) {
+    console.log('Edit', dt);
+  }
 
 
   ngAfterViewInit() {
