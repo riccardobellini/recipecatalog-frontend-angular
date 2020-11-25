@@ -1,9 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map, switchMap } from 'rxjs/operators';
-import { Observable, merge, of, EMPTY, Subscription } from 'rxjs';
-import { DishTypeService } from 'app/dish-type.service';
+import { Observable, EMPTY, Subscription } from 'rxjs';
 
 import { DishTypeItem } from "../dish-type";
 
@@ -18,16 +16,9 @@ export class DishTypesDataSource extends DataSource<DishTypeItem> {
   paginator: MatPaginator;
   sort: MatSort;
 
-  totalElements: number;
-  private filterTextChangeSubscription: Subscription;
 
-  constructor(private dtService: DishTypeService, private filterChanged$: Observable<string>) {
+  constructor(private dishTypes$: Observable<DishTypeItem[]>) {
     super();
-
-    this.filterTextChangeSubscription = filterChanged$.subscribe(_ => {
-      // return to first page when filter changes
-      this.paginator.firstPage();
-    });
   }
 
   /**
@@ -36,51 +27,7 @@ export class DishTypesDataSource extends DataSource<DishTypeItem> {
    * @returns A stream of the items to be rendered.
    */
   connect(): Observable<DishTypeItem[]> {
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-
-    // return merge(...dataMutations).pipe(map(() => {
-    //   return this.getPagedData(this.getSortedData([...this.data]));
-    // }));
-
-    const initialData$ = this.dtService.getDishTypes(this.paginator.pageIndex, this.paginator.pageSize).pipe(
-      switchMap((resp) => {
-        this.totalElements = resp.totalElements;
-        return of(resp.content);
-      })
-    );
-    const pageChanges$ = this.paginator.page.pipe(
-      switchMap(page => {
-        return this.dtService.getDishTypes(page.pageIndex, page.pageSize);
-      }),
-      switchMap((resp) => {
-        this.totalElements = resp.totalElements;
-        return of(resp.content);
-      })
-    );
-
-    const filterChange$ = this.filterChanged$.pipe(
-      switchMap(filter => {
-        return this.dtService.searchDishTypes(filter, this.paginator.pageIndex, this.paginator.pageSize);
-      }),
-      switchMap(resp => {
-        this.totalElements = resp.totalElements;
-        return of(resp.content);
-      })
-    )
-
-    const dataMutations = [
-      initialData$,
-      pageChanges$,
-      filterChange$
-    ];
-
-    return merge(...dataMutations).pipe(
-      map(dishTypes => dishTypes.map(dt => ({
-        id: dt.id,
-        name: dt.name
-      })))
-    );
+    return this.dishTypes$;
   }
 
   /**
@@ -88,7 +35,6 @@ export class DishTypesDataSource extends DataSource<DishTypeItem> {
    * any open connections or free any held resources that were set up during connect.
    */
   disconnect() {
-    this.filterTextChangeSubscription.unsubscribe();
   }
 
 }

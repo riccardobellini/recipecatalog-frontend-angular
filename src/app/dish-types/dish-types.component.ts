@@ -2,12 +2,12 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { DishTypeService } from 'app/dish-type.service';
+import { DishTypePagedResponse, DishTypeService } from 'app/dish-type.service';
 import { DishTypesDataSource } from './dish-types-datasource';
 import { DishTypeItem } from "../dish-type";
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'dish-types',
@@ -22,13 +22,19 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
 
   filterInput: FormControl;
 
-  filterTextChanged: Subject<string>;
-
   private _unsubscribeAll: Subject<any>;
 
+  totalElements: number;
+
+  private _dishTypes$: BehaviorSubject<DishTypeItem[]>;
+
+  private get dishTypes$() {
+    return this._dishTypes$.asObservable();
+  }
+
   constructor(private dtService: DishTypeService) {
+    this._dishTypes$ = new BehaviorSubject([]);
     this.filterInput = new FormControl('');
-    this.filterTextChanged = new Subject();
 
     this._unsubscribeAll = new Subject();
   }
@@ -43,14 +49,14 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   displayedColumns = ['id', 'name', 'actions'];
 
   ngOnInit() {
-    this.dataSource = new DishTypesDataSource(this.dtService, this.filterTextChanged.asObservable());
+    this.dataSource = new DishTypesDataSource(this.dishTypes$);
     this.filterInput.valueChanges.pipe(
       takeUntil(this._unsubscribeAll),
       debounceTime(300),
       distinctUntilChanged()
     ).subscribe(filter => {
-      const text = filter.trim();
-      this.filterTextChanged.next(text);
+      this.paginator.firstPage();
+      this.fetchDishTypeList();
     });
   }
 
@@ -67,5 +73,23 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+
+    this.paginator.page.pipe(
+      takeUntil(this._unsubscribeAll),
+    ).subscribe(_ => this.fetchDishTypeList());
+
+    this.fetchDishTypeList();
+  }
+
+  updateDishTypes = (resp: DishTypePagedResponse) => {
+    this.totalElements = resp.totalElements;
+    this._dishTypes$.next(resp.content);
+  }
+
+  fetchDishTypeList = () => {
+    const filter = this.filterInput.value;
+    this.dtService.searchDishTypes(filter, this.paginator.pageIndex, this.paginator.pageSize).pipe(
+      takeUntil(this._unsubscribeAll),
+    ).subscribe(this.updateDishTypes);
   }
 }
