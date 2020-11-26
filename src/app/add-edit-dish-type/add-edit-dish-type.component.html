@@ -1,3 +1,17 @@
-<p>add-edit-dish-type works!</p>
-<button mat-flat-button (click)="undo()">Annulla</button>
-<button mat-flat-button color="primary" (click)="add()">Aggiungi</button>
+<div class="mat-headline">
+  <span>Aggiungi categoria</span>
+</div>
+
+<div>
+  <form (ngSubmit)="add()" #dtForm="ngForm" class="dishtype-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input required name="name" matInput placeholder="Es. Antipasti" [(ngModel)]="model.name" #name="ngModel">
+    </mat-form-field>
+    <div fxLayout fxLayoutAlign="space-between">
+      <button mat-flat-button (click)="undo()">ANNULLA</button>
+      <button mat-flat-button type="submit" color="primary" [disabled]="!dtForm.form.valid">AGGIUNGI</button>
+    </div>
+  </form>
+</div>
+

@@ -34,6 +34,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-type.component';
 
 @NgModule({
@@ -71,7 +73,9 @@ import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-typ
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     DishTypeService

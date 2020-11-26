@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { DishTypePagedResponse, DishTypeService } from 'app/dish-type.service';
 import { DishTypesDataSource } from './dish-types-datasource';
-import { DishTypeItem } from "../dish-type";
+import { DishType, DishTypeItem } from "../dish-type";
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -71,13 +71,12 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   addDishType = () => {
-    const dialog = this.dialog.open(AddEditDishTypeComponent);
+    const dialog = this.dialog.open<AddEditDishTypeComponent, any, DishType>(AddEditDishTypeComponent);
 
     dialog.afterClosed().subscribe(
       result => {
         if (result) {
-          // TODO
-          console.log(result);
+          this.dtService.createDishType(result).subscribe(this.fetchDishTypeList);
         }
       }
     )
