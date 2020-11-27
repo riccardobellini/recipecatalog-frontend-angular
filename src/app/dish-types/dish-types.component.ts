@@ -77,7 +77,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
 
     dialog.afterClosed().subscribe(
       result => {
-        if (result) {
+        if (result && result.name) {
           this.dtService.createDishType(result).subscribe(this.fetchDishTypeList);
         }
       }
