@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { DishType } from 'app/dish-type';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DishType, DishTypeItem } from 'app/dish-type';
+
+export interface DishTypeDialogData {
+  action: 'create' | 'edit',
+  data: DishTypeItem
+}
 
 @Component({
   selector: 'rc-add-edit-dish-type',
@@ -9,19 +14,22 @@ import { DishType } from 'app/dish-type';
 })
 export class AddEditDishTypeComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<AddEditDishTypeComponent>) { }
+  action: 'create' | 'edit' | undefined;
 
-  model = new DishType();
+  constructor(
+    public dialogRef: MatDialogRef<AddEditDishTypeComponent>,
+    @Inject(MAT_DIALOG_DATA) data: DishTypeDialogData) {
+      this.action = data?.action;
+      if (data?.action === 'edit') {
+        this.model = data.data;
+      } else {
+        this.model = new DishType();
+      }
+    }
+
+  model: DishType;
 
   ngOnInit(): void {
-  }
-
-  undo() {
-    this.dialogRef.close();
-  }
-
-  add() {
-    this.dialogRef.close(this.model);
   }
 
 }

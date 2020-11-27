@@ -1,17 +1,17 @@
-<div class="mat-headline">
-  <span>Aggiungi categoria</span>
-</div>
+<h2 mat-dialog-title>{{action === 'edit' ? "Modifica" : "Aggiungi"}} categoria</h2>
 
-<div>
-  <form (ngSubmit)="add()" #dtForm="ngForm" class="dishtype-form">
+<mat-dialog-content>
+  <form #dtForm="ngForm" class="dishtype-form">
     <mat-form-field appearance="outline">
       <mat-label>Nome</mat-label>
       <input required name="name" matInput placeholder="Es. Antipasti" [(ngModel)]="model.name" #name="ngModel">
     </mat-form-field>
-    <div fxLayout fxLayoutAlign="space-between">
-      <button mat-flat-button (click)="undo()">ANNULLA</button>
-      <button mat-flat-button type="submit" color="primary" [disabled]="!dtForm.form.valid">AGGIUNGI</button>
-    </div>
   </form>
-</div>
+</mat-dialog-content>
 
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>ANNULLA</button>
+  <button mat-flat-button [mat-dialog-close]="model" color="primary" [disabled]="!dtForm.form.valid">
+    {{action === 'edit' ? "SALVA" : "AGGIUNGI"}}
+  </button>
+</mat-dialog-actions>

@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { AddEditDishTypeComponent } from 'app/add-edit-dish-type/add-edit-dish-type.component';
+import { AddEditDishTypeComponent, DishTypeDialogData } from 'app/add-edit-dish-type/add-edit-dish-type.component';
 
 @Component({
   selector: 'dish-types',
@@ -69,7 +69,22 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   editDishType(dt: DishTypeItem) {
-    console.log('Edit', dt);
+    const dialog = this.dialog.open<AddEditDishTypeComponent, DishTypeDialogData, DishType>(AddEditDishTypeComponent, {
+      data: {
+        action: 'edit',
+        data: { ...dt }
+      }
+    });
+
+    dialog.afterClosed().subscribe(
+      result => {
+        console.log(result);
+        if (result && typeof result.id !== 'undefined' && result.name) {
+          this.loading = true;
+          this.dtService.editDishType(result).subscribe(this.fetchDishTypeList);
+        }
+      }
+    );
   }
 
   addDishType = () => {
@@ -78,6 +93,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
     dialog.afterClosed().subscribe(
       result => {
         if (result && result.name) {
+          this.loading = true;
           this.dtService.createDishType(result).subscribe(this.fetchDishTypeList);
         }
       }
