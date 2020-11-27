@@ -1,5 +1,10 @@
-.sidenav-container {
+.navigation-container {
   height: 100%;
+}
+
+.sidenav-container {
+  /* stretch sidenav to fill available height */
+  flex: 1;
 }
 
 .sidenav {
@@ -13,5 +18,5 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 }
