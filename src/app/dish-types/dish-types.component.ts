@@ -10,6 +10,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditDishTypeComponent, DishTypeDialogData } from 'app/add-edit-dish-type/add-edit-dish-type.component';
+import { DeleteDishTypeConfirmComponent } from 'app/delete-dish-type-confirm/delete-dish-type-confirm.component';
 
 @Component({
   selector: 'dish-types',
@@ -64,8 +65,19 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
     });
   }
 
-  deleteDishType(dt: DishTypeItem) {
-    console.log('Delete', dt);
+  deleteDishType = (dt: DishTypeItem) => {
+    const dialog = this.dialog.open<DeleteDishTypeConfirmComponent, string, boolean>(DeleteDishTypeConfirmComponent, {
+      data: dt.name
+    });
+
+    dialog.afterClosed().subscribe(
+      doDelete => {
+        if (doDelete === true) {
+          this.loading = true;
+          this.dtService.deleteDishType(dt).subscribe(this.fetchDishTypeList);
+        }
+      }
+    );
   }
 
   editDishType(dt: DishTypeItem) {
@@ -78,7 +90,6 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
 
     dialog.afterClosed().subscribe(
       result => {
-        console.log(result);
         if (result && typeof result.id !== 'undefined' && result.name) {
           this.loading = true;
           this.dtService.editDishType(result).subscribe(this.fetchDishTypeList);

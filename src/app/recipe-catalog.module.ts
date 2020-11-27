@@ -38,6 +38,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-type.component';
+import { DeleteDishTypeConfirmComponent } from './delete-dish-type-confirm/delete-dish-type-confirm.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-typ
     NavigationComponent,
     HomeDashboardComponent,
     DishTypesComponent,
-    AddEditDishTypeComponent
+    AddEditDishTypeComponent,
+    DeleteDishTypeConfirmComponent
   ],
   imports: [
     BrowserModule,
