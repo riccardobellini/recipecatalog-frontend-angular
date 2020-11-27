@@ -8,7 +8,16 @@ $sizes: (
   100: 100%
 ) !default;
 
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+// Imports functions, variables, and mixins that are needed by other Bootstrap files
+@import "variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/utilities";
+// Import Bootstrap Reboot
+@import "~bootstrap/scss/reboot";
 
 .page-heading {
   padding: 2rem 1.5rem;
