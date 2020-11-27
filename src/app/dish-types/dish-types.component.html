@@ -47,13 +47,23 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
         <td mat-cell *matCellDef="let dt">
-          <button mat-button [matMenuTriggerFor]="menu" aria-label="Actions menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editDishType(dt)">Edit</button>
-            <button mat-menu-item (click)="deleteDishType(dt)">Delete</button>
-          </mat-menu>
+          <span fxShow fxHide.gt-xs>
+            <button mat-button [matMenuTriggerFor]="menu" aria-label="Actions menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editDishType(dt)">Edit</button>
+              <button mat-menu-item (click)="deleteDishType(dt)">Delete</button>
+            </mat-menu>
+          </span>
+          <span fxHide fxShow.gt-xs>
+            <button mat-button aria-label="edit" (click)="editDishType(dt)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button aria-label="delete" (click)="deleteDishType(dt)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </span>
         </td>
       </ng-container>
 
