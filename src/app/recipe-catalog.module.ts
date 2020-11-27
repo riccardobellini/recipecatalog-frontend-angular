@@ -36,6 +36,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-type.component';
 
 @NgModule({
@@ -75,7 +76,8 @@ import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-typ
     MatSortModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     DishTypeService

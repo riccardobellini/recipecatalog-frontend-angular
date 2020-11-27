@@ -27,6 +27,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
 
   totalElements: number;
+  loading = false;
 
   private _dishTypes$: BehaviorSubject<DishTypeItem[]>;
 
@@ -51,6 +52,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   displayedColumns = ['id', 'name', 'actions'];
 
   ngOnInit() {
+    this.loading = true;
     this.dataSource = new DishTypesDataSource(this.dishTypes$);
     this.filterInput.valueChanges.pipe(
       takeUntil(this._unsubscribeAll),
@@ -104,6 +106,9 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
     const filter = this.filterInput.value;
     this.dtService.searchDishTypes(filter, this.paginator.pageIndex, this.paginator.pageSize).pipe(
       takeUntil(this._unsubscribeAll),
-    ).subscribe(this.updateDishTypes);
+    ).subscribe(resp => {
+      this.updateDishTypes(resp);
+      this.loading = false;
+    });
   }
 }

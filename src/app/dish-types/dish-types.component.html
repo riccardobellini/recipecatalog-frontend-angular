@@ -20,7 +20,16 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div class="mat-elevation-z8">
+  <div
+  class="py-4"
+  [hidden]="!loading"
+  fxLayout
+  fxLayoutAlign="center center"
+  >
+    <mat-spinner diameter="75"></mat-spinner>
+  </div>
+
+  <div class="mat-elevation-z8" [hidden]="loading">
     <table mat-table class="full-width-table" matSort aria-label="Elements">
       <!-- Id Column -->
       <ng-container matColumnDef="id">
