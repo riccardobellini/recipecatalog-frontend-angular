@@ -11,6 +11,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditDishTypeComponent, DishTypeDialogData } from 'app/add-edit-dish-type/add-edit-dish-type.component';
 import { DeleteDishTypeConfirmComponent } from 'app/delete-dish-type-confirm/delete-dish-type-confirm.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'dish-types',
@@ -36,7 +37,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
     return this._dishTypes$.asObservable();
   }
 
-  constructor(private dtService: DishTypeService, private dialog: MatDialog) {
+  constructor(private dtService: DishTypeService, private dialog: MatDialog, private breakpointObserver: BreakpointObserver) {
     this._dishTypes$ = new BehaviorSubject([]);
     this.filterInput = new FormControl('');
 
@@ -63,6 +64,18 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
       this.paginator.firstPage();
       this.fetchDishTypeList();
     });
+
+    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).pipe(
+      takeUntil(this._unsubscribeAll)
+    ).subscribe(
+      result => {
+        if (result.matches) {
+          this.displayedColumns = ['name', 'actions'];
+        } else {
+          this.displayedColumns = ['id', 'name', 'creationTime', 'actions'];
+        }
+      }
+    )
   }
 
   deleteDishType = (dt: DishTypeItem) => {
