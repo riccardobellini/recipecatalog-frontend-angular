@@ -50,7 +50,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'actions'];
+  displayedColumns = ['id', 'name', 'creationTime', 'actions'];
 
   ngOnInit() {
     this.loading = true;

@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "recipecatalog-frontend-angular": {
+      "i18n": {
+        "sourceLocale": "it"
+      },
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -50,6 +53,15 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "it": {
+              "aot": true,
+              "outputPath": "dist",
+              "baseHref": "/it/",
+              "i18nFile": "src/locale/messages.it.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "it",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -61,6 +73,9 @@
           "configurations": {
             "production": {
               "browserTarget": "recipecatalog-frontend-angular:build:production"
+            },
+            "it": {
+              "browserTarget": "recipecatalog-frontend-angular:build:it"
             }
           }
         },

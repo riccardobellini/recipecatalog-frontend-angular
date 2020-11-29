@@ -1,11 +1,11 @@
-<h2 mat-dialog-title>Elimina categoria</h2>
+<h2 mat-dialog-title i18n>Delete dish type</h2>
 
 <mat-dialog-content class="mat-typography">
-    <p>Sei sicuro di voler eliminare la categoria "{{dtName}}?"</p>
-    <h2>L'eliminazione rimuoverà la categoria dalle ricette esistenti!</h2>
+    <p i18n>Are you sure you want to delete dish type "{{dtName}}?"</p>
+    <h2 i18n>Deletion is irreversible and will remove dish type from existing recipes!</h2>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-flat-button [mat-dialog-close]="false">ANNULLA</button>
-    <button mat-flat-button [mat-dialog-close]="true" color="warn">ELIMINA</button>
+    <button mat-flat-button [mat-dialog-close]="false" i18n>CANCEL</button>
+    <button mat-flat-button [mat-dialog-close]="true" color="warn" i18n>DELETE</button>
 </mat-dialog-actions>

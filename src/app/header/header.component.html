@@ -1,23 +1,23 @@
 <mat-toolbar fxLayout="row" color="primary">
   <button mat-icon-button (click)="clickMenu()"><mat-icon>menu</mat-icon></button>
-  <span fxFlex [style.cursor]="'pointer'" [routerLink]="['/home']">Catalogo Ricette</span>
+  <span fxFlex [style.cursor]="'pointer'" [routerLink]="['/home']" i18n>Recipe Catalog</span>
   <span class="spacer"></span>
-  <button mat-button fxHide.xs [disableRipple] [routerLink]="['/home']">Home</button>
-  <button mat-button fxHide.xs [disableRipple] [disabled]>Ingredienti</button>
-  <button mat-button fxHide.xs [disableRipple] [routerLink]="['/dishTypes']">Categorie</button>
-  <button mat-button fxHide.xs [disableRipple] [disabled]>Libri</button>
+  <button mat-button fxHide.xs [disableRipple] [routerLink]="['/home']" i18n>Home</button>
+  <button mat-button fxHide.xs [disableRipple] [disabled] i18n>Ingredients</button>
+  <button mat-button fxHide.xs [disableRipple] [routerLink]="['/dishTypes']" i18n>Dish types</button>
+  <button mat-button fxHide.xs [disableRipple] [disabled] i18n>Books</button>
   <button mat-icon-button [matMenuTriggerFor]="dropMenu" fxHide fxShow.xs>
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #dropMenu="matMenu">
     <ng-container>
-      <button mat-button [disableRipple] [routerLink]="['/home']">Home</button>
+      <button mat-button [disableRipple] [routerLink]="['/home']" i18n>Home</button>
       <mat-divider></mat-divider>
-      <button mat-button [disableRipple] [disabled]>Ingredienti</button>
+      <button mat-button [disableRipple] [disabled] i18n>Ingredients</button>
       <mat-divider></mat-divider>
-      <button mat-button [disableRipple] [routerLink]="['/dishTypes']">Categorie</button>
+      <button mat-button [disableRipple] [routerLink]="['/dishTypes']" i18n>Dish types</button>
       <mat-divider></mat-divider>
-      <button mat-button [disableRipple] [disabled]>Libri</button>
+      <button mat-button [disableRipple] [disabled] i18n>Books</button>
     </ng-container>
   </mat-menu>
 </mat-toolbar>
