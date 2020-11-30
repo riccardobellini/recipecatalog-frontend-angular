@@ -51,7 +51,7 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'creationTime', 'actions'];
+  displayedColumns = ['id', 'name', 'creationTime', 'lastModificationTime', 'actions'];
 
   ngOnInit() {
     this.loading = true;
@@ -65,14 +65,18 @@ export class DishTypesComponent implements AfterViewInit, OnInit, OnDestroy {
       this.fetchDishTypeList();
     });
 
-    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).pipe(
+    this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall, Breakpoints.Medium]).pipe(
       takeUntil(this._unsubscribeAll)
     ).subscribe(
       result => {
-        if (result.matches) {
+        if (result.breakpoints[Breakpoints.XSmall]) {
           this.displayedColumns = ['name', 'actions'];
+        } else if (result.breakpoints[Breakpoints.Small]) {
+          this.displayedColumns = ['name', 'creationTime', 'actions'];
+        } else if (result.breakpoints[Breakpoints.Medium]) {
+          this.displayedColumns = ['name', 'creationTime', 'lastModificationTime', 'actions'];
         } else {
-          this.displayedColumns = ['id', 'name', 'creationTime', 'actions'];
+          this.displayedColumns = ['id', 'name', 'creationTime', 'lastModificationTime', 'actions'];
         }
       }
     )
