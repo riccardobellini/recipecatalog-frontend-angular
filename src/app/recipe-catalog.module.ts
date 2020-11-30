@@ -16,6 +16,8 @@ import { NoHrefDirective } from './no-href.directive';
 import { NewDishTypeComponent } from './new-dish-type/new-dish-type.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { IngredientService } from "./ingredient.service";
+
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -82,7 +84,8 @@ import { DeleteDishTypeConfirmComponent } from './delete-dish-type-confirm/delet
     MatProgressSpinnerModule
   ],
   providers: [
-    DishTypeService
+    DishTypeService,
+    IngredientService
   ],
   bootstrap: [RecipeCatalogComponent]
 })
