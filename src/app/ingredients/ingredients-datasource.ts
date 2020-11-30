@@ -3,21 +3,20 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 
-import { DishTypeItem } from "../dish-type";
-
+import { IngredientItem } from "../ingredient";
 
 
 /**
- * Data source for the DishTypes view. This class should
+ * Data source for the Ingredients view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class DishTypesDataSource extends DataSource<DishTypeItem> {
+export class IngredientsDataSource extends DataSource<IngredientItem> {
   paginator: MatPaginator;
   sort: MatSort;
 
 
-  constructor(private dishTypes$: Observable<DishTypeItem[]>) {
+  constructor(private ingredients$: Observable<IngredientItem[]>) {
     super();
   }
 
@@ -26,8 +25,8 @@ export class DishTypesDataSource extends DataSource<DishTypeItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<DishTypeItem[]> {
-    return this.dishTypes$;
+  connect(): Observable<IngredientItem[]> {
+    return this.ingredients$;
   }
 
   /**

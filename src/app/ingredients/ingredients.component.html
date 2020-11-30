@@ -1,0 +1,94 @@
+<div id="ingredients">
+
+    <mat-toolbar class="header">
+      <mat-toolbar-row>
+        <div>
+          <button mat-fab aria-label="Add ingredient" (click)="addIngredient()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div fxFlex="1 0 auto" fxLayout fxLayoutAlign="center center">
+          <div class="search-wrapper mt-16 mt-sm-0">
+  
+            <div class="search" fxFlex fxLayoutAlign="center center">
+              <mat-icon>search</mat-icon>
+              <input class="mat-body" [formControl]="filterInput" placeholder="Filtra ingredienti">
+            </div>
+  
+          </div>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  
+    <div
+    class="py-4"
+    [hidden]="!loading"
+    fxLayout
+    fxLayoutAlign="center center"
+    >
+      <mat-spinner diameter="75"></mat-spinner>
+    </div>
+  
+    <div class="mat-elevation-z8" [hidden]="loading">
+      <table mat-table class="full-width-table" matSort aria-label="Elements">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>Id</th>
+          <td mat-cell *matCellDef="let row">{{row.id}}</td>
+        </ng-container>
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>Name</th>
+          <td mat-cell *matCellDef="let row">{{row.name}}</td>
+        </ng-container>
+  
+        <!-- Creation time Column -->
+        <ng-container matColumnDef="creationTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>Creation time</th>
+          <td mat-cell *matCellDef="let row">{{row.creationTime | date : 'medium'}}</td>
+        </ng-container>
+  
+        <!-- Last modification time Column -->
+        <ng-container matColumnDef="lastModificationTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>Last modification time</th>
+          <td mat-cell *matCellDef="let row">{{row.lastModificationTime | date : 'medium'}}</td>
+        </ng-container>
+  
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header i18n>Actions</th>
+          <td mat-cell *matCellDef="let ingr">
+            <span fxShow fxHide.gt-xs>
+              <button mat-button [matMenuTriggerFor]="menu" aria-label="Actions menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editIngredient(ingr)" i18n>Edit</button>
+                <button mat-menu-item (click)="deleteIngredient(ingr)" i18n>Delete</button>
+              </mat-menu>
+            </span>
+            <span fxHide fxShow.gt-xs>
+              <button mat-button aria-label="edit" (click)="editIngredient(ingr)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button aria-label="delete" (click)="deleteIngredient(ingr)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </span>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator #paginator
+          [length]="totalElements"
+          [pageIndex]="0"
+          [pageSize]="10"
+          [pageSizeOptions]="[10, 25, 50, 100, 250]">
+      </mat-paginator>
+    </div>
+  
+  </div>
