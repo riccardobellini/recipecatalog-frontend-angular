@@ -3,7 +3,7 @@ import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
-import { PaginationRequestParams } from './models/pagination';
+import { PageUtilsService } from "./page-utils.service";
 
 import 'rxjs/Rx';
 import {DishType, DishTypeItem} from './dish-type';
@@ -46,16 +46,16 @@ export interface DishTypePagedResponse {
 @Injectable()
 export class DishTypeService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private pageUtils: PageUtilsService) { }
 
   getDishTypes(page ?: number, pageSize ?: number): Observable<DishTypePagedResponse> {
     return this.http.get<DishTypePagedResponse>('http://localhost:3000/api/v1/dishTypes', {
-      params: this.handlePageParams(page, pageSize)
+      params: this.pageUtils.handlePageParams(page, pageSize)
     });
   }
 
   searchDishTypes(query: string, page ?: number, pageSize ?: number): Observable<DishTypePagedResponse> {
-    let parms: HttpParams = this.handlePageParams(page, pageSize);
+    let parms: HttpParams = this.pageUtils.handlePageParams(page, pageSize);
     if (query && query.trim().length > 0) {
       parms = parms.set('q', query);
     }
@@ -95,13 +95,5 @@ export class DishTypeService {
     );
   }
 
-  private handlePageParams(page?: number, pageSize?: number): HttpParams {
-    const result: HttpParams = new HttpParams();
-    const p: PaginationRequestParams = {
-      page,
-      size: pageSize
-    };
-    return result.set('page', p.page.toString()).set('size', p.size.toString());
-  }
 
 }
