@@ -9,3 +9,10 @@ export interface IngredientEdit {
     name: string;
     id?: number;
 }
+
+export class Ingredient implements IngredientEdit {
+    name: string;
+    id?: number;
+
+    constructor() { }
+}

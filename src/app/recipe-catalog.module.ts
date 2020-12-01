@@ -42,6 +42,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-type.component';
 import { DeleteDishTypeConfirmComponent } from './delete-dish-type-confirm/delete-dish-type-confirm.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
+import { AddEditIngredientComponent } from './add-edit-ingredient/add-edit-ingredient.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { IngredientsComponent } from './ingredients/ingredients.component';
     DishTypesComponent,
     AddEditDishTypeComponent,
     DeleteDishTypeConfirmComponent,
-    IngredientsComponent
+    IngredientsComponent,
+    AddEditIngredientComponent
   ],
   imports: [
     BrowserModule,

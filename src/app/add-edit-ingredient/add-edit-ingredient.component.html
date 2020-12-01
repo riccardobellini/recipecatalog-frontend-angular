@@ -1,0 +1,17 @@
+<h2 mat-dialog-title i18n>{{action === 'edit' ? "Edit" : "Create"}} ingredient</h2>
+
+<mat-dialog-content>
+  <form #ingrForm="ngForm">
+    <mat-form-field appearance="outline">
+      <mat-label i18n>Name</mat-label>
+      <input required name="name" matInput placeholder="Es. Pomodori" [(ngModel)]="model.name" #name="ngModel">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close i18n>CANCEL</button>
+  <button mat-flat-button [mat-dialog-close]="model" color="primary" [disabled]="!ingrForm.form.valid" i18n>
+    {{action === 'edit' ? "SAVE" : "CREATE"}}
+  </button>
+</mat-dialog-actions>
