@@ -59,7 +59,7 @@ export class IngredientService {
     });
   }
 
-  createDishType(ingr: IngredientEdit) {
+  createIngredient(ingr: IngredientEdit) {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post('http://localhost:3000/api/v1/ingredients', ingr, {
       headers,
@@ -69,7 +69,7 @@ export class IngredientService {
     );
   }
 
-  editDishType(ingr: IngredientEdit) {
+  editIngredient(ingr: IngredientEdit) {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `http://localhost:3000/api/v1/ingredients/${ingr.id}`;
     const submit: IngredientEdit = {
@@ -83,7 +83,7 @@ export class IngredientService {
     );
   }
 
-  deleteDishType(ingrId: number) {
+  deleteIngredient(ingrId: number) {
     const url = `http://localhost:3000/api/v1/ingredients/${ingrId}`;
     return this.http.delete(url, {
       observe: 'response'
