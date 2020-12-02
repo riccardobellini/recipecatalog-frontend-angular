@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
-import { AddEditIngredientComponent } from 'app/add-edit-ingredient/add-edit-ingredient.component';
+import { AddEditIngredientComponent, IngredientDialogData } from 'app/add-edit-ingredient/add-edit-ingredient.component';
 import { DeleteIngredientConfirmComponent } from 'app/delete-ingredient-confirm/delete-ingredient-confirm.component';
 import { Ingredient, IngredientEdit, IngredientItem } from 'app/ingredient';
 import { IngredientPagedResponse, IngredientService } from 'app/ingredient.service';
@@ -127,7 +127,21 @@ export class IngredientsComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   editIngredient = (ingr: IngredientItem) => {
-    console.log(`Editing ${ingr.id}`);
+    const dialog = this.dialog.open<AddEditIngredientComponent, IngredientDialogData, IngredientEdit>(AddEditIngredientComponent, {
+      data: {
+        action: 'edit',
+        data: { ...ingr }
+      }
+    });
+
+    dialog.afterClosed().subscribe(
+      result => {
+        if (result && typeof result.id !== 'undefined' && result.name) {
+          this.loading = true;
+          this.ingrService.editIngredient(result).subscribe(this.fetchIngredientList);
+        }
+      }
+    );
   }
 
   addIngredient = () => {
