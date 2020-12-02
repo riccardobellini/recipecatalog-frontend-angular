@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
 import { AddEditIngredientComponent } from 'app/add-edit-ingredient/add-edit-ingredient.component';
+import { DeleteIngredientConfirmComponent } from 'app/delete-ingredient-confirm/delete-ingredient-confirm.component';
 import { Ingredient, IngredientEdit, IngredientItem } from 'app/ingredient';
 import { IngredientPagedResponse, IngredientService } from 'app/ingredient.service';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -111,7 +112,18 @@ export class IngredientsComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   deleteIngredient = (ingr: IngredientItem) => {
-    console.log(`Deleting ${ingr.id}`);
+    const dialog = this.dialog.open<DeleteIngredientConfirmComponent, string, boolean>(DeleteIngredientConfirmComponent, {
+      data: ingr.name
+    });
+
+    dialog.afterClosed().subscribe(
+      doDelete => {
+        if (doDelete === true) {
+          this.loading = true;
+          this.ingrService.deleteIngredient(ingr.id).subscribe(this.fetchIngredientList);
+        }
+      }
+    );
   }
 
   editIngredient = (ingr: IngredientItem) => {
