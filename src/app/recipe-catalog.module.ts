@@ -44,6 +44,7 @@ import { DeleteDishTypeConfirmComponent } from './delete-dish-type-confirm/delet
 import { IngredientsComponent } from './ingredients/ingredients.component';
 import { AddEditIngredientComponent } from './add-edit-ingredient/add-edit-ingredient.component';
 import { DeleteIngredientConfirmComponent } from './delete-ingredient-confirm/delete-ingredient-confirm.component';
+import { BooksComponent } from './books/books.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DeleteIngredientConfirmComponent } from './delete-ingredient-confirm/de
     DeleteDishTypeConfirmComponent,
     IngredientsComponent,
     AddEditIngredientComponent,
-    DeleteIngredientConfirmComponent
+    DeleteIngredientConfirmComponent,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
