@@ -43,7 +43,9 @@ export interface DishTypePagedResponse {
   empty: boolean
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DishTypeService {
 
   constructor(private http: HttpClient, private pageUtils: PageUtilsService) { }
