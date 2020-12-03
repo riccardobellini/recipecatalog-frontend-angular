@@ -89,10 +89,7 @@ import { DeleteIngredientConfirmComponent } from './delete-ingredient-confirm/de
     MatInputModule,
     MatProgressSpinnerModule
   ],
-  providers: [
-    DishTypeService,
-    IngredientService
-  ],
+  providers: [],
   bootstrap: [RecipeCatalogComponent]
 })
 export class RecipeCatalogModule { }
