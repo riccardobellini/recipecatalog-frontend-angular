@@ -4,7 +4,8 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
-import { BookItem } from 'app/book';
+import { AddEditBookComponent } from 'app/add-edit-book/add-edit-book.component';
+import { BookEdit, BookItem } from 'app/book';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { BookPagedResponse, BookService } from "../book.service";
@@ -117,7 +118,16 @@ export class BooksComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   addBook = () => {
-    console.log('Adding');
+    const dialog = this.dialog.open<AddEditBookComponent, any, BookEdit>(AddEditBookComponent);
+
+    dialog.afterClosed().subscribe(
+      result => {
+        if (result && result.title) {
+          this.loading = true;
+          this.bookService.createBook(result).subscribe(this.fetchBooksList);
+        }
+      }
+    );
   }
 
 }

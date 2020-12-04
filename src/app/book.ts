@@ -10,7 +10,7 @@ export interface BookEdit {
     id?: number;
 }
 
-export class Ingredient implements BookEdit {
+export class Book implements BookEdit {
     title: string;
     id?: number;
 
