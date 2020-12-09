@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
 import { AddEditBookComponent, BookDialogData } from 'app/add-edit-book/add-edit-book.component';
 import { BookEdit, BookItem } from 'app/book';
+import { DeleteBookConfirmComponent } from 'app/delete-book-confirm/delete-book-confirm.component';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { BookPagedResponse, BookService } from "../book.service";
@@ -110,7 +111,18 @@ export class BooksComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   deleteBook = (book: BookItem) => {
-    console.log(`Deleting ${book.id}`);
+    const dialog = this.dialog.open<DeleteBookConfirmComponent, string, boolean>(DeleteBookConfirmComponent, {
+      data: book.title
+    });
+
+    dialog.afterClosed().subscribe(
+      doDelete => {
+        if (doDelete === true) {
+          this.loading = true;
+          this.bookService.deleteBook(book.id).subscribe(this.fetchBooksList);
+        }
+      }
+    );
   }
 
   editBook = (book: BookItem) => {
