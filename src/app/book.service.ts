@@ -2,8 +2,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 import { BookEdit, BookItem } from './book';
+import { CountResponse } from './count-response';
 
 import { PageUtilsService } from './page-utils.service';
 
@@ -91,6 +92,12 @@ export class BookService {
       observe: 'response'
     }).pipe(
       map(response => response.status)
+    );
+  }
+
+  getBookCount(): Observable<number> {
+    return this.http.get<CountResponse>('http://localhost:3000/api/v1/books/count').pipe(
+      pluck('totalElements')
     );
   }
 }

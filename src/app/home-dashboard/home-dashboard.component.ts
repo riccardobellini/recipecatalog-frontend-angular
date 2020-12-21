@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { DishTypeService } from 'app/dish-type.service';
 import { IngredientService } from 'app/ingredient.service';
+import { BookService } from 'app/book.service';
 
 interface CountCard {
   id: number,
@@ -68,7 +69,8 @@ export class HomeDashboardComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private dtService: DishTypeService,
-    private ingrService: IngredientService) {}
+    private ingrService: IngredientService,
+    private bookService: BookService) {}
 
   ngOnInit() {
     this.dtService.getDishTypeCount()
@@ -79,6 +81,11 @@ export class HomeDashboardComponent implements OnInit {
     this.ingrService.getIngredientCount()
     .subscribe(total => {
       this.countCards[this.countCardDict.ingredients].total = total;
+    });
+
+    this.bookService.getBookCount()
+    .subscribe(total => {
+      this.countCards[this.countCardDict.books].total = total;
     });
   }
 }
