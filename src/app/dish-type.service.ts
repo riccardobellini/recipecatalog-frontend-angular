@@ -1,5 +1,5 @@
 
-import {map} from 'rxjs/operators';
+import {map, mapTo, pluck} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
@@ -7,6 +7,7 @@ import { PageUtilsService } from "./page-utils.service";
 
 import 'rxjs/Rx';
 import {DishType, DishTypeItem} from './dish-type';
+import { CountResponse } from './count-response';
 import { Observable } from 'rxjs/Rx';
 
 interface FullDishTypeItem extends DishTypeItem {
@@ -97,5 +98,10 @@ export class DishTypeService {
     );
   }
 
+  getDishTypeCount(): Observable<number> {
+    return this.http.get<CountResponse>('http://localhost:3000/api/v1/dishTypes/count').pipe(
+      pluck('totalElements')
+    );
+  }
 
 }
