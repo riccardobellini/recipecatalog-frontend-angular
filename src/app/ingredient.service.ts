@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
+import { CountResponse } from './count-response';
 
 import { IngredientEdit, IngredientItem } from "./ingredient";
 import { PageUtilsService } from './page-utils.service';
@@ -89,6 +90,12 @@ export class IngredientService {
       observe: 'response'
     }).pipe(
       map(response => response.status)
+    );
+  }
+
+  getIngredientCount(): Observable<number> {
+    return this.http.get<CountResponse>('http://localhost:3000/api/v1/ingredients/count').pipe(
+      pluck('totalElements')
     );
   }
 }
