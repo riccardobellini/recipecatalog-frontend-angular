@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "lint": "tslint \"src/**/*.ts\"",
+    "lint": "eslint -c .eslintrc.js --ext .ts src",
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor"
@@ -37,11 +37,16 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.12",
+    "@angular-eslint/eslint-plugin": "^0.8.0-beta.6",
     "@angular/cli": "^9.1.12",
     "@angular/compiler-cli": "^9.1.12",
     "@types/jasmine": "2.5.38",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/eslint-plugin-tslint": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
     "codelyzer": "^5.1.2",
+    "eslint": "^7.16.0",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
@@ -51,7 +56,6 @@
     "karma-remap-istanbul": "^0.2.1",
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
-    "tslint": "^4.0.2",
     "typescript": "^3.8.3"
   }
 }
