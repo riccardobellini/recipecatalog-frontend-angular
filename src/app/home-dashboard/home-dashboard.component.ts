@@ -1,3 +1,4 @@
+import { RecipeService } from 'app/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
@@ -70,7 +71,8 @@ export class HomeDashboardComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private dtService: DishTypeService,
     private ingrService: IngredientService,
-    private bookService: BookService) {}
+    private bookService: BookService,
+    private recipeService: RecipeService) {}
 
   ngOnInit() {
     this.dtService.getDishTypeCount()
@@ -86,6 +88,11 @@ export class HomeDashboardComponent implements OnInit {
     this.bookService.getBookCount()
     .subscribe(total => {
       this.countCards[this.countCardDict.books].total = total;
+    });
+
+    this.recipeService.getRecipeCount()
+    .subscribe(total => {
+      this.countCards[this.countCardDict.recipes].total = total;
     });
   }
 }
