@@ -48,6 +48,7 @@ import { BooksComponent } from './books/books.component';
 import { AddEditBookComponent } from './add-edit-book/add-edit-book.component';
 import { DeleteBookConfirmComponent } from './delete-book-confirm/delete-book-confirm.component';
 import { DashboardCardComponent } from './dashboard-card/dashboard-card.component';
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { DashboardCardComponent } from './dashboard-card/dashboard-card.componen
     BooksComponent,
     AddEditBookComponent,
     DeleteBookConfirmComponent,
-    DashboardCardComponent
+    DashboardCardComponent,
+    RecipeListComponent
   ],
   imports: [
     BrowserModule,
