@@ -2,7 +2,7 @@ import { RecipeItem } from './recipe-item';
 import { pluck } from 'rxjs/operators';
 import { CountResponse } from './count-response';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PageUtilsService } from './page-utils.service';
 
@@ -53,6 +53,16 @@ export class RecipeService {
   getRecipes(page ?: number, pageSize ?: number): Observable<RecipePagedResponse> {
     return this.http.get<RecipePagedResponse>('http://localhost:3000/api/v1/recipes', {
       params: this.pageUtils.handlePageParams(page, pageSize)
+    });
+  }
+
+  searchRecipes(query: string, page ?: number, pageSize ?: number): Observable<RecipePagedResponse> {
+    let parms: HttpParams = this.pageUtils.handlePageParams(page, pageSize);
+    if (query && query.trim().length > 0) {
+      parms = parms.set('q', query);
+    }
+    return this.http.get<RecipePagedResponse>('http://localhost:3000/api/v1/recipes', {
+      params: parms
     });
   }
 }

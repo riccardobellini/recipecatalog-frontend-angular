@@ -49,7 +49,7 @@ export class RecipeListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private fetchRecipesList = () => {
     const filter = this.filterInput.value;
-    this.recipeService.getRecipes(this.paginator.pageIndex, this.paginator.pageSize).pipe(
+    this.recipeService.searchRecipes(filter, this.paginator.pageIndex, this.paginator.pageSize).pipe(
       takeUntil(this._unsubscribeAll),
     ).subscribe(resp => {
       this.updateRecipes(resp);
