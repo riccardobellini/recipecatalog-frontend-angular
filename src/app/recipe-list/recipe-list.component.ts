@@ -120,4 +120,7 @@ export class RecipeListComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('Adding recipe');
   }
 
+  showRecipeDetails = (rec: RecipeItem) => {
+    console.log(`Showing details of recipe ${rec.id}`);
+  }
 }

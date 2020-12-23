@@ -39,6 +39,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRippleModule } from '@angular/material/core';
 import { AddEditDishTypeComponent } from './add-edit-dish-type/add-edit-dish-type.component';
 import { DeleteDishTypeConfirmComponent } from './delete-dish-type-confirm/delete-dish-type-confirm.component';
 import { IngredientsComponent } from './ingredients/ingredients.component';
@@ -97,7 +98,8 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [RecipeCatalogComponent]
